@@ -106,6 +106,17 @@
 				'list_type' => 0,
 				'not_null' => false
 			),
+			'indicator' => array(
+				'parent_table' => 'indicators',
+				'parent_pk_field' => 'indicator_id',
+				'parent_caption' => '`indicators`.`description`',
+				'parent_from' => '`indicators` LEFT JOIN `outcomes` as outcomes1 ON `outcomes1`.`outcome_id`=`indicators`.`outcome` ',
+				'filterers' => array('outcome' => 'outcome'),
+				'custom_query' => '',
+				'inherit_permissions' => false,
+				'list_type' => 0,
+				'not_null' => false
+			),
 			'beneficiary_group' => array(
 				'parent_table' => 'beneficiary_groups',
 				'parent_pk_field' => 'beneficiary_group_id',

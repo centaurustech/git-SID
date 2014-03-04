@@ -87,6 +87,8 @@
 	$x->TableTitle = "Outcomes";
 	$x->TableIcon = "resources/table_icons/brick.png";
 	$x->PrimaryKey = "`outcomes`.`outcome_id`";
+	$x->DefaultSortField = '1';
+	$x->DefaultSortDirection = 'asc';
 
 	$x->ColWidth   = array(  20, 150, 150, 150);
 	$x->ColCaption = array("ID", "Outcome area", "Description", "Strata");

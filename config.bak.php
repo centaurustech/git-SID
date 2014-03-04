@@ -8,7 +8,7 @@
 		'adminUsername' => "jonny",
 		'adminPassword' => "1c83fa13ec28ae16cac14cbea41ad34c",
 		'notifyAdminNewMembers' => "0",
-		'defaultSignUp' => "0",
+		'defaultSignUp' => "1",
 		'anonymousGroup' => "anonymous",
 		'anonymousMember' => "guest",
 		'groupsPerPage' => "10",
@@ -24,5 +24,5 @@
 		'senderName' => "Membership management",
 		'senderEmail' => "hi@jonnykates.com",
 		'approvalSubject' => "Your membership is now approved",
-		'approvalMessage' => "Dear member,\r\n\r\nYour membership is now approved by the admin. You can log in to your account here:\r\nhttp://localhost/git-SID\r\n\r\nRegards,\r\nAdmin"
+		'approvalMessage' => "Dear member,\n\nYour membership is now approved by the admin. You can log in to your account here:\nhttp://localhost/git-SID\n\nRegards,\nAdmin"
 	);

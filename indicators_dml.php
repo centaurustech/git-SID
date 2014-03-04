@@ -75,6 +75,25 @@ function indicators_delete($selected_id, $AllowDeleteOfParents=false, $skipCheck
 			return $Translation['Couldn\'t delete this record'];
 	}
 
+	// child table: entries
+	$res = sql("select `indicator_id` from `indicators` where `indicator_id`='$selected_id'", $eo);
+	$indicator_id = mysql_fetch_row($res);
+	$rires = sql("select count(1) from `entries` where `indicator`='".addslashes($indicator_id[0])."'", $eo);
+	$rirow = mysql_fetch_row($rires);
+	if($rirow[0] && !$AllowDeleteOfParents && !$skipChecks){
+		$RetMsg = $Translation["couldn't delete"];
+		$RetMsg = str_replace("<RelatedRecords>", $rirow[0], $RetMsg);
+		$RetMsg = str_replace("<TableName>", "entries", $RetMsg);
+		return $RetMsg;
+	}elseif($rirow[0] && $AllowDeleteOfParents && !$skipChecks){
+		$RetMsg = $Translation["confirm delete"];
+		$RetMsg = str_replace("<RelatedRecords>", $rirow[0], $RetMsg);
+		$RetMsg = str_replace("<TableName>", "entries", $RetMsg);
+		$RetMsg = str_replace("<Delete>", "<input tabindex=\"2\" type=\"button\" class=\"button\" value=\"".$Translation['yes']."\" onClick=\"window.location='indicators_view.php?SelectedID=".urlencode($selected_id)."&delete_x=1&confirmed=1';\">", $RetMsg);
+		$RetMsg = str_replace("<Cancel>", "<input tabindex=\"2\" type=\"button\" class=\"button\" value=\"".$Translation['no']."\" onClick=\"window.location='indicators_view.php?SelectedID=".urlencode($selected_id)."';\">", $RetMsg);
+		return $RetMsg;
+	}
+
 	sql("delete from `indicators` where `indicator_id`='$selected_id'", $eo);
 
 	// hook: indicators_after_delete

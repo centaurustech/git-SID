@@ -5,7 +5,11 @@
 	include("$currDir/lib.php");
 
 	// upload paths
-	$p=array(  
+	$p=array(   
+		'companies' => array(
+			'website' => '',
+			'primary key' => 'company_id'
+		)
 	);
 
 	if(!count($p)) getLink();

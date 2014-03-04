@@ -1,5 +1,8 @@
 <!-- Edit this file to change the layout of the highlighted record in the table view -->
+		<td id="companies-company_id-<%%VALUE(company_id)%%>" class=""><%%VALUE(company_id)%%></td>
 		<td id="companies-name-<%%VALUE(company_id)%%>" class=""><%%VALUE(name)%%></td>
 		<td id="companies-client-<%%VALUE(company_id)%%>" class=""><%%VALUE(client)%%></td>
+		<td id="companies-website-<%%VALUE(company_id)%%>" class=""><a href="link.php?t=companies&f=website&i=<%%VALUE(company_id)%%>" target="_blank" class="" style="padding: 0;"><%%VALUE(website)%%></a></td>
 		<td id="companies-created-<%%VALUE(company_id)%%>" class=""><%%VALUE(created)%%></td>
 		<td id="companies-created_by-<%%VALUE(company_id)%%>" class=""><%%VALUE(created_by)%%></td>
+		<script>jQuery(function(){ var e_website = '<%%VALUE(website)%%>'; if(e_website == '' || e_website == '&nbsp;') jQuery('#companies-website-<%%VALUE(company_id)%%>').html(''); });</script>

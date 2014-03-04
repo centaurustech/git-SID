@@ -386,6 +386,7 @@ function reports_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Al
 	$templateCode=str_replace('<%%UPLOADFILE(company)%%>', '', $templateCode);
 	$templateCode=str_replace('<%%UPLOADFILE(created)%%>', '', $templateCode);
 	$templateCode=str_replace('<%%UPLOADFILE(created_by)%%>', '', $templateCode);
+	$templateCode=str_replace('<%%UPLOADFILE(average_score)%%>', '', $templateCode);
 
 	// process values
 	if($selected_id){
@@ -399,6 +400,8 @@ function reports_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Al
 		$templateCode=str_replace('<%%URLVALUE(created)%%>', urlencode(@date('d/m/Y', @strtotime(htmlspecialchars($urow['created'], ENT_QUOTES)))), $templateCode);
 		$templateCode=str_replace('<%%VALUE(created_by)%%>', htmlspecialchars($row['created_by'], ENT_QUOTES), $templateCode);
 		$templateCode=str_replace('<%%URLVALUE(created_by)%%>', urlencode($urow['created_by']), $templateCode);
+		$templateCode=str_replace('<%%VALUE(average_score)%%>', htmlspecialchars($row['average_score'], ENT_QUOTES), $templateCode);
+		$templateCode=str_replace('<%%URLVALUE(average_score)%%>', urlencode($urow['average_score']), $templateCode);
 	}else{
 		$templateCode=str_replace('<%%VALUE(report_id)%%>', '', $templateCode);
 		$templateCode=str_replace('<%%URLVALUE(report_id)%%>', urlencode(''), $templateCode);
@@ -410,6 +413,8 @@ function reports_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Al
 		$templateCode=str_replace('<%%URLVALUE(created)%%>', urlencode('<%%creationDate%%>'), $templateCode);
 		$templateCode=str_replace('<%%VALUE(created_by)%%>', '<%%creatorUsername%%>', $templateCode);
 		$templateCode=str_replace('<%%URLVALUE(created_by)%%>', urlencode('<%%creatorUsername%%>'), $templateCode);
+		$templateCode=str_replace('<%%VALUE(average_score)%%>', '', $templateCode);
+		$templateCode=str_replace('<%%URLVALUE(average_score)%%>', urlencode(''), $templateCode);
 	}
 
 	// process translations

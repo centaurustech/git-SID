@@ -90,10 +90,10 @@
 	$x->DefaultSortField = '1';
 	$x->DefaultSortDirection = 'asc';
 
-	$x->ColWidth   = array(  150, 20, 30);
-	$x->ColCaption = array("Name", "Created", "Created by");
-	$x->ColFieldName = array('name', 'created', 'created_by');
-	$x->ColNumber  = array(2, 3, 4);
+	$x->ColWidth   = array(  20, 150, 20, 30);
+	$x->ColCaption = array("ID", "Name", "Created", "Created by");
+	$x->ColFieldName = array('client_id', 'name', 'created', 'created_by');
+	$x->ColNumber  = array(1, 2, 3, 4);
 
 	$x->Template = 'templates/clients_templateTV.html';
 	$x->SelectedTemplate = 'templates/clients_templateTVS.html';

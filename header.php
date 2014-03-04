@@ -9,13 +9,10 @@
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<title>sid db | <?php echo $x->TableTitle; ?></title>
+		<title>SID | <?php echo $x->TableTitle; ?></title>
 		<link rel="shortcut icon" href="">
 
-		<link rel="stylesheet" href="resources/initializr/css/bootstrap.css">
-		<!--[if gt IE 8]><!-->
-			<link rel="stylesheet" href="resources/initializr/css/bootstrap-theme.css">
-		<!--<![endif]-->
+		<link rel="stylesheet" href="resources/initializr/css/flatly.css">
 		<link rel="stylesheet" href="resources/lightbox/css/lightbox.css" media="screen">
 		<link rel="stylesheet" href="resources/select2/select2.css" media="screen">
 		<link rel="stylesheet" href="dynamic.css.php">

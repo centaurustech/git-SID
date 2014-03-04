@@ -7,6 +7,9 @@
 	<!-- child links -->
 	<div class="row">
 		<div class="col-xs-12">
+			<a class="hidden-xs btn btn-default btn-lg pull-right hidden hspacer-sm" href="entries_view.php?filterer_indicator=<%%URLVALUE(indicator_id)%%>" id="entries_link"><i class="glyphicon glyphicon-list-alt"></i> Entries</a>
+			<a class="visible-xs btn btn-default btn-lg btn-block hidden vspacer-sm" href="entries_view.php?filterer_indicator=<%%URLVALUE(indicator_id)%%>" id="xs_entries_link"><i class="glyphicon glyphicon-list-alt"></i> Entries</a>
+			<input type="hidden" id="entries_hclink" value="entries_view.php?filterer_indicator=<%%URLVALUE(indicator_id)%%>">
 			<div class="clearfix"></div>
 		</div>
 	</div>
@@ -53,6 +56,14 @@
 	</div>
 
 
+	<!-- child records -->
+	<hr>
+	<div class="row">
+		<div class="col-lg-10 col-lg-offset-1">
+			<div id="indicators-children" class="children-tabs"></div>
+		</div>
+	</div>
+
 </div><!-- /div class="panel-body" -->
 	<script>
 		jQuery(function(){
@@ -67,4 +78,21 @@
 			jQuery('a[href="<%%TRANSLATION(ImageFolder)%%>"]').click(function(){ return false; });
 		});
 
+		document.observe("dom:loaded", function() {
+			/* when no record is selected ('add new' mode) */
+			if($$('input[name=SelectedID]')[0].value==''){
+				/* hide links to children tables */
+				$$('a[id]').findAll(function(cl){ return cl.id.match(/_link$/); }).invoke('hide');
+				/* skip loading parent/children view */
+				return false;
+			}
+			post(
+				'parent-children.php', {
+					ParentTable: 'indicators',
+					SelectedID: '<%%VALUE(indicator_id)%%>',
+					Operation: 'show-children'
+				},
+				'indicators-children'
+			);
+		});
 	</script>

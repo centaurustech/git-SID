@@ -12,10 +12,7 @@
 
 		<link rel="shortcut icon" href="">
 
-		<link rel="stylesheet" href="../resources/initializr/css/bootstrap.css">
-		<!--[if gt IE 8]><!-->
-			<link rel="stylesheet" href="../resources/initializr/css/bootstrap-theme.css">
-		<!--<![endif]-->
+		<link rel="stylesheet" href="../resources/initializr/css/flatly.css">
 		<link rel="stylesheet" href="../dynamic.css.php">
 
 		<!--[if lt IE 9]>

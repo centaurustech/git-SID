@@ -13,12 +13,12 @@
 	*/
 	$block_classes = array(
 		'first' => array(
-			'grid_column' => 'col-sm-6 col-md-4 col-lg-3',
+			'grid_column' => 'col-lg-12',
 			'panel' => 'panel-warning',
 			'link' => 'btn-warning'
 		),
 		'other' => array(
-			'grid_column' => 'col-sm-6 col-md-4 col-lg-3',
+			'grid_column' => 'col-lg-12',
 			'panel' => 'panel-info',
 			'link' => 'btn-info'
 		)
@@ -45,7 +45,7 @@
 			$i=0;
 			foreach($arrTables as $tn=>$tc){
 				$tChkFF = array_search($tn, array());
-				$tChkHL = array_search($tn, array('sic','reports','entries','outcome_areas','outcomes','beneficiary_groups','indicators'));
+				$tChkHL = array_search($tn, array('sic','entries','outcome_areas','outcomes','beneficiary_groups','indicators'));
 				if($tChkHL !== false && $tChkHL !== null) continue;
 
 				$searchFirst = (($tChkFF !== false && $tChkFF !== null) ? '?Filter_x=1' : '');

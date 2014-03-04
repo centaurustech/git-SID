@@ -25,6 +25,7 @@
 		"`companies`.`company_id`" => "company_id",
 		"`companies`.`name`" => "name",
 		"IF(    CHAR_LENGTH(`clients1`.`name`), CONCAT_WS('',   `clients1`.`name`), '') /* Client */" => "client",
+		"`companies`.`website`" => "website",
 		"`companies`.`industry`" => "industry",
 		"`companies`.`company_number`" => "company_number",
 		"`companies`.`country_hq`" => "country_hq",
@@ -41,14 +42,15 @@
 		2 => 2,
 		3 => 3,
 		4 => 4,
-		5 => '`companies`.`company_number`',
-		6 => 6,
+		5 => 5,
+		6 => '`companies`.`company_number`',
 		7 => 7,
-		8 => '`companies`.`num_employees`',
-		9 => 9,
+		8 => 8,
+		9 => '`companies`.`num_employees`',
 		10 => 10,
-		11 => '`companies`.`created`',
-		12 => 12
+		11 => 11,
+		12 => '`companies`.`created`',
+		13 => 13
 	);
 
 	// Fields that can be displayed in the csv file
@@ -56,6 +58,7 @@
 		"`companies`.`company_id`" => "company_id",
 		"`companies`.`name`" => "name",
 		"IF(    CHAR_LENGTH(`clients1`.`name`), CONCAT_WS('',   `clients1`.`name`), '') /* Client */" => "client",
+		"`companies`.`website`" => "website",
 		"`companies`.`industry`" => "industry",
 		"`companies`.`company_number`" => "company_number",
 		"`companies`.`country_hq`" => "country_hq",
@@ -71,6 +74,7 @@
 		"`companies`.`company_id`" => "ID",
 		"`companies`.`name`" => "Name",
 		"IF(    CHAR_LENGTH(`clients1`.`name`), CONCAT_WS('',   `clients1`.`name`), '') /* Client */" => "Client",
+		"`companies`.`website`" => "Website",
 		"`companies`.`industry`" => "Industry",
 		"`companies`.`company_number`" => "Company number",
 		"`companies`.`country_hq`" => "Country based",
@@ -87,6 +91,7 @@
 		"`companies`.`company_id`" => "company_id",
 		"`companies`.`name`" => "name",
 		"IF(    CHAR_LENGTH(`clients1`.`name`), CONCAT_WS('',   `clients1`.`name`), '') /* Client */" => "client",
+		"`companies`.`website`" => "website",
 		"`companies`.`industry`" => "industry",
 		"`companies`.`company_number`" => "company_number",
 		"`companies`.`country_hq`" => "country_hq",
@@ -111,7 +116,7 @@
 	$x->AllowInsert = $perm[1];
 	$x->AllowUpdate = $perm[3];
 	$x->SeparateDV = 1;
-	$x->AllowDeleteOfParents = 0;
+	$x->AllowDeleteOfParents = 1;
 	$x->AllowFilters = 1;
 	$x->AllowSavingFilters = 0;
 	$x->AllowSorting = 1;
@@ -128,10 +133,10 @@
 	$x->TableIcon = "resources/table_icons/chair.png";
 	$x->PrimaryKey = "`companies`.`company_id`";
 
-	$x->ColWidth   = array(  150, 150, 20, 30);
-	$x->ColCaption = array("Name", "Client", "Date created", "Created by");
-	$x->ColFieldName = array('name', 'client', 'created', 'created_by');
-	$x->ColNumber  = array(2, 3, 11, 12);
+	$x->ColWidth   = array(  20, 150, 150, 150, 20, 30);
+	$x->ColCaption = array("ID", "Name", "Client", "Website", "Date created", "Created by");
+	$x->ColFieldName = array('company_id', 'name', 'client', 'website', 'created', 'created_by');
+	$x->ColNumber  = array(1, 2, 3, 4, 12, 13);
 
 	$x->Template = 'templates/companies_templateTV.html';
 	$x->SelectedTemplate = 'templates/companies_templateTVS.html';

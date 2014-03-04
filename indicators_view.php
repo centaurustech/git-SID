@@ -82,6 +82,8 @@
 	$x->TableTitle = "Indicators";
 	$x->TableIcon = "resources/table_icons/book_keeping.png";
 	$x->PrimaryKey = "`indicators`.`indicator_id`";
+	$x->DefaultSortField = '1';
+	$x->DefaultSortDirection = 'asc';
 
 	$x->ColWidth   = array(  20, 150, 150);
 	$x->ColCaption = array("Indicator id", "Outcome", "Description");

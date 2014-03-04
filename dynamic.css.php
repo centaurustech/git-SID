@@ -23,18 +23,18 @@ li.dropdown{ display: block !important; }
 
 div.datePicker{ font-size: 1.3em; }
 
+.clients-client_id{ white-space: normal !important; max-width: 20px !important; min-width: 20px !important;  }
 .clients-created{ white-space: normal !important; max-width: 20px !important; min-width: 20px !important;  }
 .clients-created_by{ white-space: normal !important; max-width: 30px !important; min-width: 30px !important;  }
+.companies-company_id{ white-space: normal !important; max-width: 20px !important; min-width: 20px !important;  }
 .companies-created{ white-space: normal !important; max-width: 20px !important; min-width: 20px !important;  }
 .companies-created_by{ white-space: normal !important; max-width: 30px !important; min-width: 30px !important;  }
 .sic-sic_id{ white-space: normal !important; max-width: 20px !important; min-width: 20px !important;  }
 .reports-report_id{ white-space: normal !important; max-width: 20px !important; min-width: 20px !important;  }
+.reports-date{ white-space: normal !important; max-width: 30px !important; min-width: 30px !important;  }
 .reports-created{ white-space: normal !important; max-width: 20px !important; min-width: 20px !important;  }
 .reports-created_by{ white-space: normal !important; max-width: 30px !important; min-width: 30px !important;  }
 .entries-entry_id{ white-space: normal !important; max-width: 20px !important; min-width: 20px !important;  }
-.entries-outcome{ white-space: normal !important; max-width: 80px !important; min-width: 80px !important;  }
-.entries-created{ white-space: normal !important; max-width: 20px !important; min-width: 20px !important;  }
-.entries-created_by{ white-space: normal !important; max-width: 30px !important; min-width: 30px !important;  }
 .outcome_areas-outcome_area_id{ white-space: normal !important; max-width: 20px !important; min-width: 20px !important;  }
 .outcomes-outcome_id{ white-space: normal !important; max-width: 20px !important; min-width: 20px !important;  }
 .beneficiary_groups-beneficiary_group_id{ white-space: normal !important; max-width: 20px !important; min-width: 20px !important;  }

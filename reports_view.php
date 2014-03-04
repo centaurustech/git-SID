@@ -26,7 +26,8 @@
 		"if(`reports`.`date`,date_format(`reports`.`date`,'%d/%m/%Y'),'')" => "date",
 		"IF(    CHAR_LENGTH(`companies1`.`name`) || CHAR_LENGTH(`clients1`.`name`), CONCAT_WS('',   `companies1`.`name`, ' - ', `clients1`.`name`), '') /* Company */" => "company",
 		"if(`reports`.`created`,date_format(`reports`.`created`,'%d/%m/%Y'),'')" => "created",
-		"`reports`.`created_by`" => "created_by"
+		"`reports`.`created_by`" => "created_by",
+		"`reports`.`average_score`" => "average_score"
 	);
 	// mapping incoming sort by requests to actual query fields
 	$x->SortFields = array(   
@@ -34,7 +35,8 @@
 		2 => '`reports`.`date`',
 		3 => 3,
 		4 => '`reports`.`created`',
-		5 => 5
+		5 => 5,
+		6 => '`reports`.`average_score`'
 	);
 
 	// Fields that can be displayed in the csv file
@@ -43,7 +45,8 @@
 		"if(`reports`.`date`,date_format(`reports`.`date`,'%d/%m/%Y'),'')" => "date",
 		"IF(    CHAR_LENGTH(`companies1`.`name`) || CHAR_LENGTH(`clients1`.`name`), CONCAT_WS('',   `companies1`.`name`, ' - ', `clients1`.`name`), '') /* Company */" => "company",
 		"if(`reports`.`created`,date_format(`reports`.`created`,'%d/%m/%Y'),'')" => "created",
-		"`reports`.`created_by`" => "created_by"
+		"`reports`.`created_by`" => "created_by",
+		"`reports`.`average_score`" => "average_score"
 	);
 	// Fields that can be filtered
 	$x->QueryFieldsFilters=array(   
@@ -51,7 +54,8 @@
 		"`reports`.`date`" => "Date of Report",
 		"IF(    CHAR_LENGTH(`companies1`.`name`) || CHAR_LENGTH(`clients1`.`name`), CONCAT_WS('',   `companies1`.`name`, ' - ', `clients1`.`name`), '') /* Company */" => "Company",
 		"`reports`.`created`" => "Created",
-		"`reports`.`created_by`" => "Created by"
+		"`reports`.`created_by`" => "Created by",
+		"`reports`.`average_score`" => "Average score"
 	);
 
 	// Fields that can be quick searched
@@ -60,7 +64,8 @@
 		"if(`reports`.`date`,date_format(`reports`.`date`,'%d/%m/%Y'),'')" => "date",
 		"IF(    CHAR_LENGTH(`companies1`.`name`) || CHAR_LENGTH(`clients1`.`name`), CONCAT_WS('',   `companies1`.`name`, ' - ', `clients1`.`name`), '') /* Company */" => "company",
 		"if(`reports`.`created`,date_format(`reports`.`created`,'%d/%m/%Y'),'')" => "created",
-		"`reports`.`created_by`" => "created_by"
+		"`reports`.`created_by`" => "created_by",
+		"`reports`.`average_score`" => "average_score"
 	);
 
 	// Lookup fields that can be used as filterers
@@ -76,7 +81,7 @@
 	$x->AllowInsert = $perm[1];
 	$x->AllowUpdate = $perm[3];
 	$x->SeparateDV = 1;
-	$x->AllowDeleteOfParents = 0;
+	$x->AllowDeleteOfParents = 1;
 	$x->AllowFilters = 1;
 	$x->AllowSavingFilters = 0;
 	$x->AllowSorting = 1;
@@ -93,7 +98,7 @@
 	$x->TableIcon = "resources/table_icons/application_from_storage.png";
 	$x->PrimaryKey = "`reports`.`report_id`";
 
-	$x->ColWidth   = array(  150, 150);
+	$x->ColWidth   = array(  30, 150);
 	$x->ColCaption = array("Date of Report", "Company");
 	$x->ColFieldName = array('date', 'company');
 	$x->ColNumber  = array(2, 3);

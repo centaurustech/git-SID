@@ -37,7 +37,7 @@
 	@ini_set('session.use_cookies', '1');
 	@ini_set('session.use_only_cookies', '1');
 	@session_cache_limiter('private, must-revalidate');
-	@session_name('sid_db');
+	@session_name('SID');
 	session_start();
 	header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 	header('Content-Type: text/html; charset=UTF-8');

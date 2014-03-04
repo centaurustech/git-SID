@@ -268,8 +268,8 @@
 		if(isset($_COOKIE[session_name()])){
 			setcookie(session_name(), '', time()-42000, '/');
 		}
-		if(isset($_COOKIE['sid_db_rememberMe'])){
-			setcookie('sid_db_rememberMe', '', time()-42000);
+		if(isset($_COOKIE['SID_rememberMe'])){
+			setcookie('SID_rememberMe', '', time()-42000);
 		}
 		session_destroy();
 	}

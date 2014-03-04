@@ -19,9 +19,9 @@
 					'display-refresh' => true,
 					'display-add-new' => true,
 					'forced-where' => '',
-					'display-fields' => array(1 => 'Name', 2 => 'Client', 10 => 'Date created', 11 => 'Created by'),
-					'display-field-names' => array(1 => 'name', 2 => 'client', 10 => 'created', 11 => 'created_by'),
-					'sortable-fields' => array(1 => '2', 2 => '3', 10 => '`companies`.`created`', 11 => '12'),
+					'display-fields' => array(0 => 'ID', 1 => 'Name', 2 => 'Client', 3 => 'Website', 11 => 'Date created', 12 => 'Created by'),
+					'display-field-names' => array(0 => 'company_id', 1 => 'name', 2 => 'client', 3 => 'website', 11 => 'created', 12 => 'created_by'),
+					'sortable-fields' => array(0 => '1', 1 => '2', 2 => '3', 3 => '4', 11 => '`companies`.`created`', 12 => '13'),
 					'records-per-page' => 10,
 					'default-sort-by' => false,
 					'default-sort-direction' => 'asc',
@@ -29,7 +29,7 @@
 					'display-page-selector' => true,
 					'show-page-progress' => true,
 					'template' => 'children-companies',
-					'query' => "SELECT `companies`.`company_id` as 'company_id', `companies`.`name` as 'name', IF(    CHAR_LENGTH(`clients1`.`name`), CONCAT_WS('',   `clients1`.`name`), '') as 'client', `companies`.`industry` as 'industry', `companies`.`company_number` as 'company_number', `companies`.`country_hq` as 'country_hq', `companies`.`country_operations` as 'country_operations', `companies`.`num_employees` as 'num_employees', `companies`.`company_type` as 'company_type', IF(    CHAR_LENGTH(`sic1`.`code`) || CHAR_LENGTH(`sic1`.`activity`), CONCAT_WS('',   `sic1`.`code`, ' - ', `sic1`.`activity`), '') as 'sic_code', if(`companies`.`created`,date_format(`companies`.`created`,'%d/%m/%Y'),'') as 'created', `companies`.`created_by` as 'created_by' FROM `companies` LEFT JOIN `clients` as clients1 ON `clients1`.`client_id`=`companies`.`client` LEFT JOIN `sic` as sic1 ON `sic1`.`sic_id`=`companies`.`sic_code` "
+					'query' => "SELECT `companies`.`company_id` as 'company_id', `companies`.`name` as 'name', IF(    CHAR_LENGTH(`clients1`.`name`), CONCAT_WS('',   `clients1`.`name`), '') as 'client', `companies`.`website` as 'website', `companies`.`industry` as 'industry', `companies`.`company_number` as 'company_number', `companies`.`country_hq` as 'country_hq', `companies`.`country_operations` as 'country_operations', `companies`.`num_employees` as 'num_employees', `companies`.`company_type` as 'company_type', IF(    CHAR_LENGTH(`sic1`.`code`) || CHAR_LENGTH(`sic1`.`activity`), CONCAT_WS('',   `sic1`.`code`, ' - ', `sic1`.`activity`), '') as 'sic_code', if(`companies`.`created`,date_format(`companies`.`created`,'%d/%m/%Y'),'') as 'created', `companies`.`created_by` as 'created_by' FROM `companies` LEFT JOIN `clients` as clients1 ON `clients1`.`client_id`=`companies`.`client` LEFT JOIN `sic` as sic1 ON `sic1`.`sic_id`=`companies`.`sic_code` "
 				)
 			),
 			'sic' => array(   
@@ -55,7 +55,7 @@
 					'display-page-selector' => true,
 					'show-page-progress' => true,
 					'template' => 'children-reports',
-					'query' => "SELECT `reports`.`report_id` as 'report_id', if(`reports`.`date`,date_format(`reports`.`date`,'%d/%m/%Y'),'') as 'date', IF(    CHAR_LENGTH(`companies1`.`name`) || CHAR_LENGTH(`clients1`.`name`), CONCAT_WS('',   `companies1`.`name`, ' - ', `clients1`.`name`), '') as 'company', if(`reports`.`created`,date_format(`reports`.`created`,'%d/%m/%Y'),'') as 'created', `reports`.`created_by` as 'created_by' FROM `reports` LEFT JOIN `companies` as companies1 ON `companies1`.`company_id`=`reports`.`company` LEFT JOIN `clients` as clients1 ON `clients1`.`client_id`=`companies1`.`client` "
+					'query' => "SELECT `reports`.`report_id` as 'report_id', if(`reports`.`date`,date_format(`reports`.`date`,'%d/%m/%Y'),'') as 'date', IF(    CHAR_LENGTH(`companies1`.`name`) || CHAR_LENGTH(`clients1`.`name`), CONCAT_WS('',   `companies1`.`name`, ' - ', `clients1`.`name`), '') as 'company', if(`reports`.`created`,date_format(`reports`.`created`,'%d/%m/%Y'),'') as 'created', `reports`.`created_by` as 'created_by', `reports`.`average_score` as 'average_score' FROM `reports` LEFT JOIN `companies` as companies1 ON `companies1`.`company_id`=`reports`.`company` LEFT JOIN `clients` as clients1 ON `clients1`.`client_id`=`companies1`.`client` "
 				)
 			),
 			'entries' => array(   
@@ -68,9 +68,9 @@
 					'display-refresh' => true,
 					'display-add-new' => true,
 					'forced-where' => '',
-					'display-fields' => array(0 => 'ID', 1 => 'Report', 2 => 'Outcome area', 3 => 'Outcome', 6 => 'Created', 7 => 'Created by', 13 => 'Score'),
-					'display-field-names' => array(0 => 'entry_id', 1 => 'report', 2 => 'outcome_area', 3 => 'outcome', 6 => 'created', 7 => 'created_by', 13 => 'score'),
-					'sortable-fields' => array(0 => '1', 1 => '2', 2 => '3', 3 => '4', 6 => '`entries`.`created`', 7 => '8', 13 => '14'),
+					'display-fields' => array(0 => 'ID', 1 => 'Created', 2 => 'Created by', 3 => 'Report', 4 => 'Outcome area', 5 => 'Outcome', 7 => 'Score'),
+					'display-field-names' => array(0 => 'entry_id', 1 => 'created', 2 => 'created_by', 3 => 'report', 4 => 'outcome_area', 5 => 'outcome', 7 => 'score'),
+					'sortable-fields' => array(0 => '1', 1 => '`entries`.`created`', 2 => '3', 3 => '4', 4 => '5', 5 => '6', 7 => '8'),
 					'records-per-page' => 10,
 					'default-sort-by' => false,
 					'default-sort-direction' => 'asc',
@@ -78,7 +78,7 @@
 					'display-page-selector' => true,
 					'show-page-progress' => true,
 					'template' => 'children-entries',
-					'query' => "SELECT `entries`.`entry_id` as 'entry_id', IF(    CHAR_LENGTH(`companies1`.`name`) || CHAR_LENGTH(`clients1`.`name`) || CHAR_LENGTH(`reports1`.`date`), CONCAT_WS('',   `companies1`.`name`, ' - ', `clients1`.`name`, ' - ', `reports1`.`date`), '') as 'report', IF(    CHAR_LENGTH(`outcome_areas1`.`name`), CONCAT_WS('',   `outcome_areas1`.`name`), '') as 'outcome_area', IF(    CHAR_LENGTH(`outcomes1`.`description`), CONCAT_WS('',   `outcomes1`.`description`), '') as 'outcome', IF(    CHAR_LENGTH(`beneficiary_groups1`.`name`), CONCAT_WS('',   `beneficiary_groups1`.`name`), '') as 'beneficiary_group', `entries`.`beneficiary_group_relevance` as 'beneficiary_group_relevance', if(`entries`.`created`,date_format(`entries`.`created`,'%d/%m/%Y'),'') as 'created', `entries`.`created_by` as 'created_by', `entries`.`comment` as 'comment', `entries`.`reference` as 'reference', `entries`.`reliability` as 'reliability', `entries`.`intentionality` as 'intentionality', `entries`.`equivalence` as 'equivalence', `entries`.`score` as 'score' FROM `entries` LEFT JOIN `reports` as reports1 ON `reports1`.`report_id`=`entries`.`report` LEFT JOIN `companies` as companies1 ON `companies1`.`company_id`=`reports1`.`company` LEFT JOIN `clients` as clients1 ON `clients1`.`client_id`=`companies1`.`client` LEFT JOIN `outcomes` as outcomes1 ON `outcomes1`.`outcome_id`=`entries`.`outcome` LEFT JOIN `beneficiary_groups` as beneficiary_groups1 ON `beneficiary_groups1`.`beneficiary_group_id`=`entries`.`beneficiary_group` LEFT JOIN `outcome_areas` as outcome_areas1 ON `outcome_areas1`.`outcome_area_id`=`outcomes1`.`outcome_area` "
+					'query' => "SELECT `entries`.`entry_id` as 'entry_id', if(`entries`.`created`,date_format(`entries`.`created`,'%d/%m/%Y'),'') as 'created', `entries`.`created_by` as 'created_by', IF(    CHAR_LENGTH(`companies1`.`name`) || CHAR_LENGTH(`clients1`.`name`) || CHAR_LENGTH(`reports1`.`date`), CONCAT_WS('',   `companies1`.`name`, ' - ', `clients1`.`name`, ' - ', `reports1`.`date`), '') as 'report', IF(    CHAR_LENGTH(`outcome_areas1`.`name`), CONCAT_WS('',   `outcome_areas1`.`name`), '') as 'outcome_area', IF(    CHAR_LENGTH(`outcomes1`.`description`), CONCAT_WS('',   `outcomes1`.`description`), '') as 'outcome', IF(    CHAR_LENGTH(`indicators1`.`description`), CONCAT_WS('',   `indicators1`.`description`), '') as 'indicator', `entries`.`score` as 'score', IF(    CHAR_LENGTH(`beneficiary_groups1`.`name`), CONCAT_WS('',   `beneficiary_groups1`.`name`), '') as 'beneficiary_group', `entries`.`beneficiary_group_relevance` as 'beneficiary_group_relevance', `entries`.`comment` as 'comment', `entries`.`reference` as 'reference', `entries`.`reliability` as 'reliability', `entries`.`intentionality` as 'intentionality', `entries`.`equivalence` as 'equivalence' FROM `entries` LEFT JOIN `reports` as reports1 ON `reports1`.`report_id`=`entries`.`report` LEFT JOIN `companies` as companies1 ON `companies1`.`company_id`=`reports1`.`company` LEFT JOIN `clients` as clients1 ON `clients1`.`client_id`=`companies1`.`client` LEFT JOIN `outcomes` as outcomes1 ON `outcomes1`.`outcome_id`=`entries`.`outcome` LEFT JOIN `indicators` as indicators1 ON `indicators1`.`indicator_id`=`entries`.`indicator` LEFT JOIN `beneficiary_groups` as beneficiary_groups1 ON `beneficiary_groups1`.`beneficiary_group_id`=`entries`.`beneficiary_group` LEFT JOIN `outcome_areas` as outcome_areas1 ON `outcome_areas1`.`outcome_area_id`=`outcomes1`.`outcome_area` "
 				)
 			),
 			'outcome_areas' => array(   

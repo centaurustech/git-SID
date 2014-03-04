@@ -16,16 +16,22 @@ function entries_insert(){
 		return false;
 	}
 
+	$data['created'] = parseCode('<%%creationDate%%>', true, true);
+	$data['created_by'] = parseCode('<%%creatorUsername%%>', true);
 	$data['report'] = makeSafe($_POST['report']);
 		if($data['report'] == empty_lookup_value){ $data['report'] = ''; }
+	$data['outcome_area'] = makeSafe($_POST['outcome']);
+		if($data['outcome_area'] == empty_lookup_value){ $data['outcome_area'] = ''; }
 	$data['outcome'] = makeSafe($_POST['outcome']);
 		if($data['outcome'] == empty_lookup_value){ $data['outcome'] = ''; }
+	$data['indicator'] = makeSafe($_POST['indicator']);
+		if($data['indicator'] == empty_lookup_value){ $data['indicator'] = ''; }
+	$data['score'] = makeSafe($_POST['score']);
+		if($data['score'] == empty_lookup_value){ $data['score'] = ''; }
 	$data['beneficiary_group'] = makeSafe($_POST['beneficiary_group']);
 		if($data['beneficiary_group'] == empty_lookup_value){ $data['beneficiary_group'] = ''; }
 	$data['beneficiary_group_relevance'] = makeSafe($_POST['beneficiary_group_relevance']);
 		if($data['beneficiary_group_relevance'] == empty_lookup_value){ $data['beneficiary_group_relevance'] = ''; }
-	$data['created'] = parseCode('<%%creationDate%%>', true, true);
-	$data['created_by'] = parseCode('<%%creatorUsername%%>', true);
 	$data['comment'] = br2nl(makeSafe($_POST['comment']));
 	$data['reference'] = makeSafe($_POST['reference']);
 		if($data['reference'] == empty_lookup_value){ $data['reference'] = ''; }
@@ -35,8 +41,6 @@ function entries_insert(){
 		if($data['intentionality'] == empty_lookup_value){ $data['intentionality'] = ''; }
 	$data['equivalence'] = makeSafe($_POST['equivalence']);
 		if($data['equivalence'] == empty_lookup_value){ $data['equivalence'] = ''; }
-	$data['score'] = makeSafe($_POST['score']);
-		if($data['score'] == empty_lookup_value){ $data['score'] = ''; }
 
 	// hook: entries_before_insert
 	if(function_exists('entries_before_insert')){
@@ -45,7 +49,7 @@ function entries_insert(){
 	}
 
 	$o=array('silentErrors' => true);
-	sql('insert into `entries` set       `report`=' . (($data['report'] !== '' && $data['report'] !== NULL) ? "'{$data['report']}'" : 'NULL') . ', `outcome`=' . (($data['outcome'] !== '' && $data['outcome'] !== NULL) ? "'{$data['outcome']}'" : 'NULL') . ', `beneficiary_group`=' . (($data['beneficiary_group'] !== '' && $data['beneficiary_group'] !== NULL) ? "'{$data['beneficiary_group']}'" : 'NULL') . ', `beneficiary_group_relevance`=' . (($data['beneficiary_group_relevance'] !== '' && $data['beneficiary_group_relevance'] !== NULL) ? "'{$data['beneficiary_group_relevance']}'" : 'NULL') . ', `created`=' . "'{$data['created']}'" . ', `created_by`=' . "'{$data['created_by']}'" . ', `comment`=' . (($data['comment'] !== '' && $data['comment'] !== NULL) ? "'{$data['comment']}'" : 'NULL') . ', `reference`=' . (($data['reference'] !== '' && $data['reference'] !== NULL) ? "'{$data['reference']}'" : 'NULL') . ', `reliability`=' . (($data['reliability'] !== '' && $data['reliability'] !== NULL) ? "'{$data['reliability']}'" : 'NULL') . ', `intentionality`=' . (($data['intentionality'] !== '' && $data['intentionality'] !== NULL) ? "'{$data['intentionality']}'" : 'NULL') . ', `equivalence`=' . (($data['equivalence'] !== '' && $data['equivalence'] !== NULL) ? "'{$data['equivalence']}'" : 'NULL') . ', `score`=' . (($data['score'] !== '' && $data['score'] !== NULL) ? "'{$data['score']}'" : 'NULL'), $o);
+	sql('insert into `entries` set       `created`=' . "'{$data['created']}'" . ', `created_by`=' . "'{$data['created_by']}'" . ', `report`=' . (($data['report'] !== '' && $data['report'] !== NULL) ? "'{$data['report']}'" : 'NULL') . ', `outcome_area`=' . (($data['outcome_area'] !== '' && $data['outcome_area'] !== NULL) ? "'{$data['outcome_area']}'" : 'NULL') . ', `outcome`=' . (($data['outcome'] !== '' && $data['outcome'] !== NULL) ? "'{$data['outcome']}'" : 'NULL') . ', `indicator`=' . (($data['indicator'] !== '' && $data['indicator'] !== NULL) ? "'{$data['indicator']}'" : 'NULL') . ', `score`=' . (($data['score'] !== '' && $data['score'] !== NULL) ? "'{$data['score']}'" : 'NULL') . ', `beneficiary_group`=' . (($data['beneficiary_group'] !== '' && $data['beneficiary_group'] !== NULL) ? "'{$data['beneficiary_group']}'" : 'NULL') . ', `beneficiary_group_relevance`=' . (($data['beneficiary_group_relevance'] !== '' && $data['beneficiary_group_relevance'] !== NULL) ? "'{$data['beneficiary_group_relevance']}'" : 'NULL') . ', `comment`=' . (($data['comment'] !== '' && $data['comment'] !== NULL) ? "'{$data['comment']}'" : 'NULL') . ', `reference`=' . (($data['reference'] !== '' && $data['reference'] !== NULL) ? "'{$data['reference']}'" : 'NULL') . ', `reliability`=' . (($data['reliability'] !== '' && $data['reliability'] !== NULL) ? "'{$data['reliability']}'" : 'NULL') . ', `intentionality`=' . (($data['intentionality'] !== '' && $data['intentionality'] !== NULL) ? "'{$data['intentionality']}'" : 'NULL') . ', `equivalence`=' . (($data['equivalence'] !== '' && $data['equivalence'] !== NULL) ? "'{$data['equivalence']}'" : 'NULL'), $o);
 	if($o['error']!=''){
 		echo $o['error'];
 		echo "<a href=\"entries_view.php?addNew_x=1\">{$Translation['< back']}</a>";
@@ -120,15 +124,21 @@ function entries_update($selected_id){
 		return false;
 	}
 
+	$data['created'] = parseMySQLDate('', '<%%creationDate%%>');
 	$data['report'] = makeSafe($_POST['report']);
 		if($data['report'] == empty_lookup_value){ $data['report'] = ''; }
+	$data['outcome_area'] = makeSafe($_POST['outcome']);
+		if($data['outcome_area'] == empty_lookup_value){ $data['outcome_area'] = ''; }
 	$data['outcome'] = makeSafe($_POST['outcome']);
 		if($data['outcome'] == empty_lookup_value){ $data['outcome'] = ''; }
+	$data['indicator'] = makeSafe($_POST['indicator']);
+		if($data['indicator'] == empty_lookup_value){ $data['indicator'] = ''; }
+	$data['score'] = makeSafe($_POST['score']);
+		if($data['score'] == empty_lookup_value){ $data['score'] = ''; }
 	$data['beneficiary_group'] = makeSafe($_POST['beneficiary_group']);
 		if($data['beneficiary_group'] == empty_lookup_value){ $data['beneficiary_group'] = ''; }
 	$data['beneficiary_group_relevance'] = makeSafe($_POST['beneficiary_group_relevance']);
 		if($data['beneficiary_group_relevance'] == empty_lookup_value){ $data['beneficiary_group_relevance'] = ''; }
-	$data['created'] = parseMySQLDate('', '<%%creationDate%%>');
 	$data['comment'] = br2nl(makeSafe($_POST['comment']));
 	$data['reference'] = makeSafe($_POST['reference']);
 		if($data['reference'] == empty_lookup_value){ $data['reference'] = ''; }
@@ -138,8 +148,6 @@ function entries_update($selected_id){
 		if($data['intentionality'] == empty_lookup_value){ $data['intentionality'] = ''; }
 	$data['equivalence'] = makeSafe($_POST['equivalence']);
 		if($data['equivalence'] == empty_lookup_value){ $data['equivalence'] = ''; }
-	$data['score'] = makeSafe($_POST['score']);
-		if($data['score'] == empty_lookup_value){ $data['score'] = ''; }
 	$data['selectedID']=makeSafe($selected_id);
 
 	// hook: entries_before_update
@@ -149,7 +157,7 @@ function entries_update($selected_id){
 	}
 
 	$o=array('silentErrors' => true);
-	sql('update `entries` set       `report`=' . (($data['report'] !== '' && $data['report'] !== NULL) ? "'{$data['report']}'" : 'NULL') . ', `outcome`=' . (($data['outcome'] !== '' && $data['outcome'] !== NULL) ? "'{$data['outcome']}'" : 'NULL') . ', `beneficiary_group`=' . (($data['beneficiary_group'] !== '' && $data['beneficiary_group'] !== NULL) ? "'{$data['beneficiary_group']}'" : 'NULL') . ', `beneficiary_group_relevance`=' . (($data['beneficiary_group_relevance'] !== '' && $data['beneficiary_group_relevance'] !== NULL) ? "'{$data['beneficiary_group_relevance']}'" : 'NULL') . ', `created`=' . (($data['created'] != '') ? "'{$data['created']}'" : 'NULL') . ', `comment`=' . (($data['comment'] !== '' && $data['comment'] !== NULL) ? "'{$data['comment']}'" : 'NULL') . ', `reference`=' . (($data['reference'] !== '' && $data['reference'] !== NULL) ? "'{$data['reference']}'" : 'NULL') . ', `reliability`=' . (($data['reliability'] !== '' && $data['reliability'] !== NULL) ? "'{$data['reliability']}'" : 'NULL') . ', `intentionality`=' . (($data['intentionality'] !== '' && $data['intentionality'] !== NULL) ? "'{$data['intentionality']}'" : 'NULL') . ', `equivalence`=' . (($data['equivalence'] !== '' && $data['equivalence'] !== NULL) ? "'{$data['equivalence']}'" : 'NULL') . ', `score`=' . (($data['score'] !== '' && $data['score'] !== NULL) ? "'{$data['score']}'" : 'NULL') . " where `entry_id`='".makeSafe($selected_id)."'", $o);
+	sql('update `entries` set       `created`=' . (($data['created'] != '') ? "'{$data['created']}'" : 'NULL') . ', `report`=' . (($data['report'] !== '' && $data['report'] !== NULL) ? "'{$data['report']}'" : 'NULL') . ', `outcome_area`=' . (($data['outcome_area'] !== '' && $data['outcome_area'] !== NULL) ? "'{$data['outcome_area']}'" : 'NULL') . ', `outcome`=' . (($data['outcome'] !== '' && $data['outcome'] !== NULL) ? "'{$data['outcome']}'" : 'NULL') . ', `indicator`=' . (($data['indicator'] !== '' && $data['indicator'] !== NULL) ? "'{$data['indicator']}'" : 'NULL') . ', `score`=' . (($data['score'] !== '' && $data['score'] !== NULL) ? "'{$data['score']}'" : 'NULL') . ', `beneficiary_group`=' . (($data['beneficiary_group'] !== '' && $data['beneficiary_group'] !== NULL) ? "'{$data['beneficiary_group']}'" : 'NULL') . ', `beneficiary_group_relevance`=' . (($data['beneficiary_group_relevance'] !== '' && $data['beneficiary_group_relevance'] !== NULL) ? "'{$data['beneficiary_group_relevance']}'" : 'NULL') . ', `comment`=' . (($data['comment'] !== '' && $data['comment'] !== NULL) ? "'{$data['comment']}'" : 'NULL') . ', `reference`=' . (($data['reference'] !== '' && $data['reference'] !== NULL) ? "'{$data['reference']}'" : 'NULL') . ', `reliability`=' . (($data['reliability'] !== '' && $data['reliability'] !== NULL) ? "'{$data['reliability']}'" : 'NULL') . ', `intentionality`=' . (($data['intentionality'] !== '' && $data['intentionality'] !== NULL) ? "'{$data['intentionality']}'" : 'NULL') . ', `equivalence`=' . (($data['equivalence'] !== '' && $data['equivalence'] !== NULL) ? "'{$data['equivalence']}'" : 'NULL') . " where `entry_id`='".makeSafe($selected_id)."'", $o);
 	if($o['error']!=''){
 		echo $o['error'];
 		echo '<a href="entries_view.php?SelectedID='.urlencode($selected_id)."\">{$Translation['< back']}</a>";
@@ -192,16 +200,28 @@ function entries_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Al
 
 	$filterer_report = thisOr(undo_magic_quotes($_REQUEST['filterer_report']), '');
 	$filterer_outcome = thisOr(undo_magic_quotes($_REQUEST['filterer_outcome']), '');
+	$filterer_indicator = thisOr(undo_magic_quotes($_REQUEST['filterer_indicator']), '');
 	$filterer_beneficiary_group = thisOr(undo_magic_quotes($_REQUEST['filterer_beneficiary_group']), '');
 
 	// populate filterers, starting from children to grand-parents
+	if($filterer_indicator && !$filterer_outcome) $filterer_outcome = sqlValue("select outcome from indicators where indicator_id='" . makeSafe($filterer_indicator) . "'");
 
 	// unique random identifier
 	$rnd1 = ($dvprint ? rand(1000000, 9999999) : '');
+	// combobox: created
+	$combo_created = new DateCombo;
+	$combo_created->DateFormat = "dmy";
+	$combo_created->MinYear = 1900;
+	$combo_created->MaxYear = 2100;
+	$combo_created->DefaultDate = parseMySQLDate('<%%creationDate%%>', '<%%creationDate%%>');
+	$combo_created->MonthNames = $Translation['month names'];
+	$combo_created->NamePrefix = 'created';
 	// combobox: report
 	$combo_report = new DataCombo;
 	// combobox: outcome
 	$combo_outcome = new DataCombo;
+	// combobox: indicator, filterable by: outcome
+	$combo_indicator = new DataCombo;
 	// combobox: beneficiary_group
 	$combo_beneficiary_group = new DataCombo;
 	// combobox: beneficiary_group_relevance
@@ -219,14 +239,6 @@ function entries_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Al
 		$combo_beneficiary_group_relevance->ListData = $combo_beneficiary_group_relevance->ListItem;
 	}
 	$combo_beneficiary_group_relevance->SelectName = 'beneficiary_group_relevance';
-	// combobox: created
-	$combo_created = new DateCombo;
-	$combo_created->DateFormat = "dmy";
-	$combo_created->MinYear = 1900;
-	$combo_created->MaxYear = 2100;
-	$combo_created->DefaultDate = parseMySQLDate('<%%creationDate%%>', '<%%creationDate%%>');
-	$combo_created->MonthNames = $Translation['month names'];
-	$combo_created->NamePrefix = 'created';
 	// combobox: reliability
 	$combo_reliability = new Combo;
 	$combo_reliability->ListType = 0;
@@ -300,25 +312,28 @@ function entries_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Al
 		$urow = $row; /* unsanitized data */
 		$hc = new CI_Input();
 		$row = $hc->xss_clean($row); /* sanitize data */
+		$combo_created->DefaultDate = $row['created'];
 		$combo_report->SelectedData = $row['report'];
 		$combo_outcome->SelectedData = $row['outcome'];
+		$combo_indicator->SelectedData = $row['indicator'];
 		$combo_beneficiary_group->SelectedData = $row['beneficiary_group'];
 		$combo_beneficiary_group_relevance->SelectedData = $row['beneficiary_group_relevance'];
-		$combo_created->DefaultDate = $row['created'];
 		$combo_reliability->SelectedData = $row['reliability'];
 		$combo_intentionality->SelectedData = $row['intentionality'];
 		$combo_equivalence->SelectedData = $row['equivalence'];
 	}else{
 		$combo_report->SelectedData = $filterer_report;
 		$combo_outcome->SelectedData = $filterer_outcome;
+		$combo_indicator->SelectedData = $filterer_indicator;
 		$combo_beneficiary_group->SelectedData = $filterer_beneficiary_group;
-		$combo_beneficiary_group_relevance->SelectedText = ( $_REQUEST['FilterField'][1]=='6' && $_REQUEST['FilterOperator'][1]=='<=>' ? (get_magic_quotes_gpc() ? stripslashes($_REQUEST['FilterValue'][1]) : $_REQUEST['FilterValue'][1]) : "");
-		$combo_reliability->SelectedText = ( $_REQUEST['FilterField'][1]=='11' && $_REQUEST['FilterOperator'][1]=='<=>' ? (get_magic_quotes_gpc() ? stripslashes($_REQUEST['FilterValue'][1]) : $_REQUEST['FilterValue'][1]) : "");
-		$combo_intentionality->SelectedText = ( $_REQUEST['FilterField'][1]=='12' && $_REQUEST['FilterOperator'][1]=='<=>' ? (get_magic_quotes_gpc() ? stripslashes($_REQUEST['FilterValue'][1]) : $_REQUEST['FilterValue'][1]) : "");
-		$combo_equivalence->SelectedText = ( $_REQUEST['FilterField'][1]=='13' && $_REQUEST['FilterOperator'][1]=='<=>' ? (get_magic_quotes_gpc() ? stripslashes($_REQUEST['FilterValue'][1]) : $_REQUEST['FilterValue'][1]) : "");
+		$combo_beneficiary_group_relevance->SelectedText = ( $_REQUEST['FilterField'][1]=='10' && $_REQUEST['FilterOperator'][1]=='<=>' ? (get_magic_quotes_gpc() ? stripslashes($_REQUEST['FilterValue'][1]) : $_REQUEST['FilterValue'][1]) : "");
+		$combo_reliability->SelectedText = ( $_REQUEST['FilterField'][1]=='13' && $_REQUEST['FilterOperator'][1]=='<=>' ? (get_magic_quotes_gpc() ? stripslashes($_REQUEST['FilterValue'][1]) : $_REQUEST['FilterValue'][1]) : "");
+		$combo_intentionality->SelectedText = ( $_REQUEST['FilterField'][1]=='14' && $_REQUEST['FilterOperator'][1]=='<=>' ? (get_magic_quotes_gpc() ? stripslashes($_REQUEST['FilterValue'][1]) : $_REQUEST['FilterValue'][1]) : "");
+		$combo_equivalence->SelectedText = ( $_REQUEST['FilterField'][1]=='15' && $_REQUEST['FilterOperator'][1]=='<=>' ? (get_magic_quotes_gpc() ? stripslashes($_REQUEST['FilterValue'][1]) : $_REQUEST['FilterValue'][1]) : "");
 	}
 	$combo_report->HTML = $combo_report->MatchText = '<span id="report-container' . $rnd1 . '"></span><input type="hidden" name="report" id="report' . $rnd1 . '">';
 	$combo_outcome->HTML = $combo_outcome->MatchText = '<span id="outcome-container' . $rnd1 . '"></span><input type="hidden" name="outcome" id="outcome' . $rnd1 . '">';
+	$combo_indicator->HTML = $combo_indicator->MatchText = '<span id="indicator-container' . $rnd1 . '"></span><input type="hidden" name="indicator" id="indicator' . $rnd1 . '">';
 	$combo_beneficiary_group->HTML = $combo_beneficiary_group->MatchText = '<span id="beneficiary_group-container' . $rnd1 . '"></span><input type="hidden" name="beneficiary_group" id="beneficiary_group' . $rnd1 . '">';
 	$combo_beneficiary_group_relevance->Render();
 	$combo_reliability->Render();
@@ -332,11 +347,13 @@ function entries_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Al
 		// initial lookup values
 		var current_report__RAND__ = { text: "", value: "<?php echo addslashes($selected_id ? $urow['report'] : $filterer_report); ?>"};
 		var current_outcome__RAND__ = { text: "", value: "<?php echo addslashes($selected_id ? $urow['outcome'] : $filterer_outcome); ?>"};
+		var current_indicator__RAND__ = { text: "", value: "<?php echo addslashes($selected_id ? $urow['indicator'] : $filterer_indicator); ?>"};
 		var current_beneficiary_group__RAND__ = { text: "", value: "<?php echo addslashes($selected_id ? $urow['beneficiary_group'] : $filterer_beneficiary_group); ?>"};
 		
 		jQuery(function() {
 			report_reload__RAND__();
 			outcome_reload__RAND__();
+			<?php echo (!$AllowUpdate || $dvprint ? 'indicator_reload__RAND__(current_outcome__RAND__.value);' : ''); ?>
 			beneficiary_group_reload__RAND__();
 		});
 		function report_reload__RAND__(){
@@ -410,6 +427,7 @@ function entries_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Al
 						});
 						jQuery('[name="outcome"]').val(resp.results[0].id);
 
+						indicator_reload__RAND__(current_outcome__RAND__.value);
 
 						if(typeof(outcome_update_autofills__RAND__) == 'function') outcome_update_autofills__RAND__();
 					});
@@ -430,6 +448,7 @@ function entries_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Al
 				current_outcome__RAND__.text = e.added.text;
 				jQuery('[name="outcome"]').val(e.added.id);
 
+						indicator_reload__RAND__(current_outcome__RAND__.value);
 
 				if(typeof(outcome_update_autofills__RAND__) == 'function') outcome_update_autofills__RAND__();
 			});
@@ -443,6 +462,60 @@ function entries_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Al
 				jQuery('#outcome-container__RAND__').html('<span id="outcome-match-text">' + resp.results[0].text + '</span>');
 
 				if(typeof(outcome_update_autofills__RAND__) == 'function') outcome_update_autofills__RAND__();
+			});
+		<?php } ?>
+
+		}
+		function indicator_reload__RAND__(filterer_outcome){
+		<?php if(($AllowUpdate || $AllowInsert) && !$dvprint){ ?>
+
+			jQuery("#indicator-container__RAND__").select2({
+				/* initial default value */
+				initSelection: function(e, c){
+					jQuery.ajax({
+						url: 'ajax_combo.php',
+						dataType: 'json',
+						data: { filterer_outcome: filterer_outcome, id: current_indicator__RAND__.value, t: 'entries', f: 'indicator' }
+					}).done(function(resp){
+						c({
+							id: resp.results[0].id,
+							text: resp.results[0].text
+						});
+						jQuery('[name="indicator"]').val(resp.results[0].id);
+
+
+						if(typeof(indicator_update_autofills__RAND__) == 'function') indicator_update_autofills__RAND__();
+					});
+				},
+				width: '100%',
+				formatNoMatches: function(term){ return '<?php echo addslashes($Translation['No matches found!']); ?>'; },
+				minimumResultsForSearch: 10,
+				loadMorePadding: 200,
+				ajax: {
+					url: 'ajax_combo.php',
+					dataType: 'json',
+					cache: true,
+					data: function(term, page){ return { filterer_outcome: filterer_outcome, s: term, p: page, t: 'entries', f: 'indicator' }; },
+					results: function(resp, page){ return resp; }
+				}
+			}).on('change', function(e){
+				current_indicator__RAND__.value = e.added.id;
+				current_indicator__RAND__.text = e.added.text;
+				jQuery('[name="indicator"]').val(e.added.id);
+
+
+				if(typeof(indicator_update_autofills__RAND__) == 'function') indicator_update_autofills__RAND__();
+			});
+		<?php }else{ ?>
+
+			jQuery.ajax({
+				url: 'ajax_combo.php',
+				dataType: 'json',
+				data: { id: current_indicator__RAND__.value, t: 'entries', f: 'indicator' }
+			}).done(function(resp){
+				jQuery('#indicator-container__RAND__').html('<span id="indicator-match-text">' + resp.results[0].text + '</span>');
+
+				if(typeof(indicator_update_autofills__RAND__) == 'function') indicator_update_autofills__RAND__();
 			});
 		<?php } ?>
 
@@ -560,6 +633,9 @@ function entries_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Al
 		$jsReadOnly .= "\tjQuery('#report_caption').prop('disabled', true).css({ color: '#555', backgroundColor: 'white' });\n";
 		$jsReadOnly .= "\tjQuery('#outcome').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
 		$jsReadOnly .= "\tjQuery('#outcome_caption').prop('disabled', true).css({ color: '#555', backgroundColor: 'white' });\n";
+		$jsReadOnly .= "\tjQuery('#indicator').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
+		$jsReadOnly .= "\tjQuery('#indicator_caption').prop('disabled', true).css({ color: '#555', backgroundColor: 'white' });\n";
+		$jsReadOnly .= "\tjQuery('#score').replaceWith('<p class=\"form-control-static\" id=\"score\">' + (jQuery('#score').val() || '') + '</p>');\n";
 		$jsReadOnly .= "\tjQuery('#beneficiary_group').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
 		$jsReadOnly .= "\tjQuery('#beneficiary_group_caption').prop('disabled', true).css({ color: '#555', backgroundColor: 'white' });\n";
 		$jsReadOnly .= "\tjQuery('#beneficiary_group_relevance').replaceWith('<p class=\"form-control-static\" id=\"beneficiary_group_relevance\">' + (jQuery('#beneficiary_group_relevance').val() || '') + '</p>'); jQuery('#beneficiary_group_relevance-multi-selection-help').hide();\n";
@@ -568,25 +644,27 @@ function entries_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Al
 		$jsReadOnly .= "\tjQuery('#reliability').replaceWith('<p class=\"form-control-static\" id=\"reliability\">' + (jQuery('#reliability').val() || '') + '</p>'); jQuery('#reliability-multi-selection-help').hide();\n";
 		$jsReadOnly .= "\tjQuery('#intentionality').replaceWith('<p class=\"form-control-static\" id=\"intentionality\">' + (jQuery('#intentionality').val() || '') + '</p>'); jQuery('#intentionality-multi-selection-help').hide();\n";
 		$jsReadOnly .= "\tjQuery('#equivalence').replaceWith('<p class=\"form-control-static\" id=\"equivalence\">' + (jQuery('#equivalence').val() || '') + '</p>'); jQuery('#equivalence-multi-selection-help').hide();\n";
-		$jsReadOnly .= "\tjQuery('#score').replaceWith('<p class=\"form-control-static\" id=\"score\">' + (jQuery('#score').val() || '') + '</p>');\n";
 
 		$noUploads = true;
 	}
 
 	// process combos
+	$templateCode=str_replace('<%%COMBO(created)%%>', ($selected_id && !$arrPerm[3] ? '<p class="form-control-static">' . $combo_created->GetHTML(true) . '</p>' : $combo_created->GetHTML()), $templateCode);
+	$templateCode=str_replace('<%%COMBOTEXT(created)%%>', $combo_created->GetHTML(true), $templateCode);
 	$templateCode=str_replace('<%%COMBO(report)%%>', $combo_report->HTML, $templateCode);
 	$templateCode=str_replace('<%%COMBOTEXT(report)%%>', $combo_report->MatchText, $templateCode);
 	$templateCode=str_replace('<%%URLCOMBOTEXT(report)%%>', urlencode($combo_report->MatchText), $templateCode);
 	$templateCode=str_replace('<%%COMBO(outcome)%%>', $combo_outcome->HTML, $templateCode);
 	$templateCode=str_replace('<%%COMBOTEXT(outcome)%%>', $combo_outcome->MatchText, $templateCode);
 	$templateCode=str_replace('<%%URLCOMBOTEXT(outcome)%%>', urlencode($combo_outcome->MatchText), $templateCode);
+	$templateCode=str_replace('<%%COMBO(indicator)%%>', $combo_indicator->HTML, $templateCode);
+	$templateCode=str_replace('<%%COMBOTEXT(indicator)%%>', $combo_indicator->MatchText, $templateCode);
+	$templateCode=str_replace('<%%URLCOMBOTEXT(indicator)%%>', urlencode($combo_indicator->MatchText), $templateCode);
 	$templateCode=str_replace('<%%COMBO(beneficiary_group)%%>', $combo_beneficiary_group->HTML, $templateCode);
 	$templateCode=str_replace('<%%COMBOTEXT(beneficiary_group)%%>', $combo_beneficiary_group->MatchText, $templateCode);
 	$templateCode=str_replace('<%%URLCOMBOTEXT(beneficiary_group)%%>', urlencode($combo_beneficiary_group->MatchText), $templateCode);
 	$templateCode=str_replace('<%%COMBO(beneficiary_group_relevance)%%>', $combo_beneficiary_group_relevance->HTML, $templateCode);
 	$templateCode=str_replace('<%%COMBOTEXT(beneficiary_group_relevance)%%>', $combo_beneficiary_group_relevance->SelectedData, $templateCode);
-	$templateCode=str_replace('<%%COMBO(created)%%>', ($selected_id && !$arrPerm[3] ? '<p class="form-control-static">' . $combo_created->GetHTML(true) . '</p>' : $combo_created->GetHTML()), $templateCode);
-	$templateCode=str_replace('<%%COMBOTEXT(created)%%>', $combo_created->GetHTML(true), $templateCode);
 	$templateCode=str_replace('<%%COMBO(reliability)%%>', $combo_reliability->HTML, $templateCode);
 	$templateCode=str_replace('<%%COMBOTEXT(reliability)%%>', $combo_reliability->SelectedData, $templateCode);
 	$templateCode=str_replace('<%%COMBO(intentionality)%%>', $combo_intentionality->HTML, $templateCode);
@@ -598,40 +676,46 @@ function entries_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Al
 	if($selected_id){
 		$templateCode=str_replace('<%%PLINK(report)%%>', ($combo_report->SelectedData ? "<span id=\"reports_plink1\" class=\"hidden\"><a class=\"btn btn-default\" href=\"reports_view.php?SelectedID=" . urlencode($combo_report->SelectedData) . "\"><i class=\"glyphicon glyphicon-search\"></i></a></span>" : ''), $templateCode);
 		$templateCode=str_replace('<%%PLINK(outcome)%%>', ($combo_outcome->SelectedData ? "<span id=\"outcomes_plink2\" class=\"hidden\"><a class=\"btn btn-default\" href=\"outcomes_view.php?SelectedID=" . urlencode($combo_outcome->SelectedData) . "\"><i class=\"glyphicon glyphicon-search\"></i></a></span>" : ''), $templateCode);
-		$templateCode=str_replace('<%%PLINK(beneficiary_group)%%>', ($combo_beneficiary_group->SelectedData ? "<span id=\"beneficiary_groups_plink3\" class=\"hidden\"><a class=\"btn btn-default\" href=\"beneficiary_groups_view.php?SelectedID=" . urlencode($combo_beneficiary_group->SelectedData) . "\"><i class=\"glyphicon glyphicon-search\"></i></a></span>" : ''), $templateCode);
+		$templateCode=str_replace('<%%PLINK(indicator)%%>', ($combo_indicator->SelectedData ? "<span id=\"indicators_plink3\" class=\"hidden\"><a class=\"btn btn-default\" href=\"indicators_view.php?SelectedID=" . urlencode($combo_indicator->SelectedData) . "\"><i class=\"glyphicon glyphicon-search\"></i></a></span>" : ''), $templateCode);
+		$templateCode=str_replace('<%%PLINK(beneficiary_group)%%>', ($combo_beneficiary_group->SelectedData ? "<span id=\"beneficiary_groups_plink4\" class=\"hidden\"><a class=\"btn btn-default\" href=\"beneficiary_groups_view.php?SelectedID=" . urlencode($combo_beneficiary_group->SelectedData) . "\"><i class=\"glyphicon glyphicon-search\"></i></a></span>" : ''), $templateCode);
 	}
 
 	// process images
 	$templateCode=str_replace('<%%UPLOADFILE(entry_id)%%>', '', $templateCode);
-	$templateCode=str_replace('<%%UPLOADFILE(report)%%>', '', $templateCode);
-	$templateCode=str_replace('<%%UPLOADFILE(outcome)%%>', '', $templateCode);
-	$templateCode=str_replace('<%%UPLOADFILE(beneficiary_group)%%>', '', $templateCode);
-	$templateCode=str_replace('<%%UPLOADFILE(beneficiary_group_relevance)%%>', '', $templateCode);
 	$templateCode=str_replace('<%%UPLOADFILE(created)%%>', '', $templateCode);
 	$templateCode=str_replace('<%%UPLOADFILE(created_by)%%>', '', $templateCode);
+	$templateCode=str_replace('<%%UPLOADFILE(report)%%>', '', $templateCode);
+	$templateCode=str_replace('<%%UPLOADFILE(outcome)%%>', '', $templateCode);
+	$templateCode=str_replace('<%%UPLOADFILE(indicator)%%>', '', $templateCode);
+	$templateCode=str_replace('<%%UPLOADFILE(score)%%>', '', $templateCode);
+	$templateCode=str_replace('<%%UPLOADFILE(beneficiary_group)%%>', '', $templateCode);
+	$templateCode=str_replace('<%%UPLOADFILE(beneficiary_group_relevance)%%>', '', $templateCode);
 	$templateCode=str_replace('<%%UPLOADFILE(comment)%%>', '', $templateCode);
 	$templateCode=str_replace('<%%UPLOADFILE(reference)%%>', '', $templateCode);
 	$templateCode=str_replace('<%%UPLOADFILE(reliability)%%>', '', $templateCode);
 	$templateCode=str_replace('<%%UPLOADFILE(intentionality)%%>', '', $templateCode);
 	$templateCode=str_replace('<%%UPLOADFILE(equivalence)%%>', '', $templateCode);
-	$templateCode=str_replace('<%%UPLOADFILE(score)%%>', '', $templateCode);
 
 	// process values
 	if($selected_id){
 		$templateCode=str_replace('<%%VALUE(entry_id)%%>', htmlspecialchars($row['entry_id'], ENT_QUOTES), $templateCode);
 		$templateCode=str_replace('<%%URLVALUE(entry_id)%%>', urlencode($urow['entry_id']), $templateCode);
-		$templateCode=str_replace('<%%VALUE(report)%%>', htmlspecialchars($row['report'], ENT_QUOTES), $templateCode);
-		$templateCode=str_replace('<%%URLVALUE(report)%%>', urlencode($urow['report']), $templateCode);
-		$templateCode=str_replace('<%%VALUE(outcome)%%>', htmlspecialchars($row['outcome'], ENT_QUOTES), $templateCode);
-		$templateCode=str_replace('<%%URLVALUE(outcome)%%>', urlencode($urow['outcome']), $templateCode);
-		$templateCode=str_replace('<%%VALUE(beneficiary_group)%%>', htmlspecialchars($row['beneficiary_group'], ENT_QUOTES), $templateCode);
-		$templateCode=str_replace('<%%URLVALUE(beneficiary_group)%%>', urlencode($urow['beneficiary_group']), $templateCode);
-		$templateCode=str_replace('<%%VALUE(beneficiary_group_relevance)%%>', htmlspecialchars($row['beneficiary_group_relevance'], ENT_QUOTES), $templateCode);
-		$templateCode=str_replace('<%%URLVALUE(beneficiary_group_relevance)%%>', urlencode($urow['beneficiary_group_relevance']), $templateCode);
 		$templateCode=str_replace('<%%VALUE(created)%%>', @date('d/m/Y', @strtotime(htmlspecialchars($row['created'], ENT_QUOTES))), $templateCode);
 		$templateCode=str_replace('<%%URLVALUE(created)%%>', urlencode(@date('d/m/Y', @strtotime(htmlspecialchars($urow['created'], ENT_QUOTES)))), $templateCode);
 		$templateCode=str_replace('<%%VALUE(created_by)%%>', htmlspecialchars($row['created_by'], ENT_QUOTES), $templateCode);
 		$templateCode=str_replace('<%%URLVALUE(created_by)%%>', urlencode($urow['created_by']), $templateCode);
+		$templateCode=str_replace('<%%VALUE(report)%%>', htmlspecialchars($row['report'], ENT_QUOTES), $templateCode);
+		$templateCode=str_replace('<%%URLVALUE(report)%%>', urlencode($urow['report']), $templateCode);
+		$templateCode=str_replace('<%%VALUE(outcome)%%>', htmlspecialchars($row['outcome'], ENT_QUOTES), $templateCode);
+		$templateCode=str_replace('<%%URLVALUE(outcome)%%>', urlencode($urow['outcome']), $templateCode);
+		$templateCode=str_replace('<%%VALUE(indicator)%%>', htmlspecialchars($row['indicator'], ENT_QUOTES), $templateCode);
+		$templateCode=str_replace('<%%URLVALUE(indicator)%%>', urlencode($urow['indicator']), $templateCode);
+		$templateCode=str_replace('<%%VALUE(score)%%>', htmlspecialchars($row['score'], ENT_QUOTES), $templateCode);
+		$templateCode=str_replace('<%%URLVALUE(score)%%>', urlencode($urow['score']), $templateCode);
+		$templateCode=str_replace('<%%VALUE(beneficiary_group)%%>', htmlspecialchars($row['beneficiary_group'], ENT_QUOTES), $templateCode);
+		$templateCode=str_replace('<%%URLVALUE(beneficiary_group)%%>', urlencode($urow['beneficiary_group']), $templateCode);
+		$templateCode=str_replace('<%%VALUE(beneficiary_group_relevance)%%>', htmlspecialchars($row['beneficiary_group_relevance'], ENT_QUOTES), $templateCode);
+		$templateCode=str_replace('<%%URLVALUE(beneficiary_group_relevance)%%>', urlencode($urow['beneficiary_group_relevance']), $templateCode);
 		if($dvprint){
 			$templateCode = str_replace('<%%VALUE(comment)%%>', nl2br(htmlspecialchars($row['comment'], ENT_QUOTES)), $templateCode);
 		}else{
@@ -646,23 +730,25 @@ function entries_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Al
 		$templateCode=str_replace('<%%URLVALUE(intentionality)%%>', urlencode($urow['intentionality']), $templateCode);
 		$templateCode=str_replace('<%%VALUE(equivalence)%%>', htmlspecialchars($row['equivalence'], ENT_QUOTES), $templateCode);
 		$templateCode=str_replace('<%%URLVALUE(equivalence)%%>', urlencode($urow['equivalence']), $templateCode);
-		$templateCode=str_replace('<%%VALUE(score)%%>', htmlspecialchars($row['score'], ENT_QUOTES), $templateCode);
-		$templateCode=str_replace('<%%URLVALUE(score)%%>', urlencode($urow['score']), $templateCode);
 	}else{
 		$templateCode=str_replace('<%%VALUE(entry_id)%%>', '', $templateCode);
 		$templateCode=str_replace('<%%URLVALUE(entry_id)%%>', urlencode(''), $templateCode);
-		$templateCode=str_replace('<%%VALUE(report)%%>', '', $templateCode);
-		$templateCode=str_replace('<%%URLVALUE(report)%%>', urlencode(''), $templateCode);
-		$templateCode=str_replace('<%%VALUE(outcome)%%>', '', $templateCode);
-		$templateCode=str_replace('<%%URLVALUE(outcome)%%>', urlencode(''), $templateCode);
-		$templateCode=str_replace('<%%VALUE(beneficiary_group)%%>', '', $templateCode);
-		$templateCode=str_replace('<%%URLVALUE(beneficiary_group)%%>', urlencode(''), $templateCode);
-		$templateCode=str_replace('<%%VALUE(beneficiary_group_relevance)%%>', '', $templateCode);
-		$templateCode=str_replace('<%%URLVALUE(beneficiary_group_relevance)%%>', urlencode(''), $templateCode);
 		$templateCode=str_replace('<%%VALUE(created)%%>', '<%%creationDate%%>', $templateCode);
 		$templateCode=str_replace('<%%URLVALUE(created)%%>', urlencode('<%%creationDate%%>'), $templateCode);
 		$templateCode=str_replace('<%%VALUE(created_by)%%>', '<%%creatorUsername%%>', $templateCode);
 		$templateCode=str_replace('<%%URLVALUE(created_by)%%>', urlencode('<%%creatorUsername%%>'), $templateCode);
+		$templateCode=str_replace('<%%VALUE(report)%%>', '', $templateCode);
+		$templateCode=str_replace('<%%URLVALUE(report)%%>', urlencode(''), $templateCode);
+		$templateCode=str_replace('<%%VALUE(outcome)%%>', '', $templateCode);
+		$templateCode=str_replace('<%%URLVALUE(outcome)%%>', urlencode(''), $templateCode);
+		$templateCode=str_replace('<%%VALUE(indicator)%%>', '', $templateCode);
+		$templateCode=str_replace('<%%URLVALUE(indicator)%%>', urlencode(''), $templateCode);
+		$templateCode=str_replace('<%%VALUE(score)%%>', '', $templateCode);
+		$templateCode=str_replace('<%%URLVALUE(score)%%>', urlencode(''), $templateCode);
+		$templateCode=str_replace('<%%VALUE(beneficiary_group)%%>', '', $templateCode);
+		$templateCode=str_replace('<%%URLVALUE(beneficiary_group)%%>', urlencode(''), $templateCode);
+		$templateCode=str_replace('<%%VALUE(beneficiary_group_relevance)%%>', '', $templateCode);
+		$templateCode=str_replace('<%%URLVALUE(beneficiary_group_relevance)%%>', urlencode(''), $templateCode);
 		$templateCode=str_replace('<%%VALUE(comment)%%>', '', $templateCode);
 		$templateCode=str_replace('<%%URLVALUE(comment)%%>', urlencode(''), $templateCode);
 		$templateCode=str_replace('<%%VALUE(reference)%%>', '', $templateCode);
@@ -673,8 +759,6 @@ function entries_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Al
 		$templateCode=str_replace('<%%URLVALUE(intentionality)%%>', urlencode(''), $templateCode);
 		$templateCode=str_replace('<%%VALUE(equivalence)%%>', '', $templateCode);
 		$templateCode=str_replace('<%%URLVALUE(equivalence)%%>', urlencode(''), $templateCode);
-		$templateCode=str_replace('<%%VALUE(score)%%>', '', $templateCode);
-		$templateCode=str_replace('<%%URLVALUE(score)%%>', urlencode(''), $templateCode);
 	}
 
 	// process translations
@@ -727,9 +811,6 @@ function entries_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Al
 	$templateCode .= $lookups;
 
 	// handle enforced parent values for read-only lookup fields
-	if( $_REQUEST['FilterField'][1]=='3' && $_REQUEST['FilterOperator'][1]=='<=>'){
-		$templateCode.="\n<input type=hidden name=outcome_area value=\"".htmlspecialchars((get_magic_quotes_gpc() ? stripslashes($_REQUEST['FilterValue'][1]) : $_REQUEST['FilterValue'][1]))."\">\n";
-	}
 
 	// don't include blank images in lightbox gallery
 	$templateCode=preg_replace('/blank.gif" rel="lightbox\[.*?\]"/', 'blank.gif"', $templateCode);

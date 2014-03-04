@@ -86,7 +86,7 @@ function NavMenus($options = array()){
 	if(is_array($arrTables)){
 		foreach($arrTables as $tn => $tc){
 			/* ---- list of tables where hide link in nav menu is set ---- */
-			$tChkHL = array_search($tn, array('sic','reports','entries','outcome_areas','outcomes','beneficiary_groups','indicators'));
+			$tChkHL = array_search($tn, array('sic','entries','outcome_areas','outcomes','beneficiary_groups','indicators'));
 			if($tChkHL !== false && $tChkHL !== null) continue;
 
 			/* ---- list of tables where filter first is set ---- */
@@ -119,9 +119,8 @@ function NavMenus($options = array()){
 }
 
 function StyleSheet(){
-	$css_links  = '<link rel="stylesheet" href="resources/initializr/css/bootstrap.css">';
+	$css_links  = '<link rel="stylesheet" href="resources/initializr/css/flatly.css">';
 	$css_links .= '<style>body{ padding-top: 70px; padding-bottom: 20px; }</style>';
-	$css_links .= '<!--[if gt IE 8]><!--> <link rel="stylesheet" href="resources/initializr/css/bootstrap-theme.css"> <!--<![endif]-->';
 	$css_links .= '<link rel="stylesheet" href="dynamic.css.php">';
 	return $css_links;
 }

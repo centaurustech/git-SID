@@ -35,7 +35,7 @@
 	@ini_set('session.use_cookies', '1');
 	@ini_set('session.use_only_cookies', '1');
 	@session_cache_limiter('private, must-revalidate');
-	@session_name('sid_db');
+	@session_name('SID');
 	session_start();
 	header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 	header('Content-Type: text/html; charset=UTF-8');
@@ -192,9 +192,9 @@
 					$_SESSION['memberID']=$username;
 					$_SESSION['memberGroupID']=sqlValue("select groupID from membership_users where lcase(memberID)='$username'");
 					if($_POST['rememberMe']==1){
-						@setcookie('sid_db_rememberMe', md5($username.$password), time()+86400*30);
+						@setcookie('SID_rememberMe', md5($username.$password), time()+86400*30);
 					}else{
-						@setcookie('sid_db_rememberMe', '', time()-86400*30);
+						@setcookie('SID_rememberMe', '', time()-86400*30);
 					}
 
 					// hook: login_ok
@@ -222,8 +222,8 @@
 
 			redirect("index.php?loginFailed=1");
 			exit;
-		}elseif((!$_SESSION['memberID'] || $_SESSION['memberID']==$adminConfig['anonymousMember']) && $_COOKIE['sid_db_rememberMe']!=''){
-			$chk=makeSafe($_COOKIE['sid_db_rememberMe']);
+		}elseif((!$_SESSION['memberID'] || $_SESSION['memberID']==$adminConfig['anonymousMember']) && $_COOKIE['SID_rememberMe']!=''){
+			$chk=makeSafe($_COOKIE['SID_rememberMe']);
 			if($username=sqlValue("select memberID from membership_users where convert(md5(concat(memberID, passMD5)), char)='$chk' and isBanned=0")){
 				$_SESSION['memberID']=$username;
 				$_SESSION['memberGroupID']=sqlValue("select groupID from membership_users where lcase(memberID)='$username'");
@@ -252,7 +252,7 @@
 					<span class="icon-bar"></span>
 				</button>
 				<!-- ---- application title is obtained from the name besides the yellow database icon in AppGini, use underscores for spaces ---- -->
-				<a class="navbar-brand" href="index.php"><i class="glyphicon glyphicon-home"></i> sid db</a>
+				<a class="navbar-brand" href="index.php"><i class="glyphicon glyphicon-home"></i> SID</a>
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">

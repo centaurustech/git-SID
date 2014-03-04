@@ -18,9 +18,16 @@
 			<fieldset class="form-horizontal">
 
 				<div class="form-group">
-					<label for="entry_id" class="control-label col-lg-3">ID</label>
+					<label for="created" class="control-label col-lg-3">Created</label>
 					<div class="col-lg-9">
-						<p class="form-control-static" id="entry_id"><%%VALUE(entry_id)%%></p>
+						<p class="form-control-static" id="created"><%%COMBOTEXT(created)%%></p>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="created_by" class="control-label col-lg-3">Created by</label>
+					<div class="col-lg-9">
+						<p class="form-control-static" id="created_by"><%%VALUE(created_by)%%></p>
 					</div>
 				</div>
 
@@ -34,7 +41,7 @@
 				<div class="form-group">
 					<label for="outcome_area" class="control-label col-lg-3">Outcome area</label>
 					<div class="col-lg-9">
-						<p class="form-control-static"><span id="outcome_area"><%%COMBOTEXT(outcome_area)%%></span> <%%PLINK(outcome_area)%%></p>
+						<p class="form-control-static" id="outcome_area"></p>
 					</div>
 				</div>
 
@@ -42,6 +49,20 @@
 					<label for="outcome" class="control-label col-lg-3">Outcome</label>
 					<div class="col-lg-9">
 						<div class="row"><div class="col-xs-10"><%%COMBO(outcome)%%></div><div class="col-xs-1"><%%PLINK(outcome)%%></div><div class="col-xs-1"><span id="outcomeLoading"></span></div></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="indicator" class="control-label col-lg-3">Indicator</label>
+					<div class="col-lg-9">
+						<div class="row"><div class="col-xs-10"><%%COMBO(indicator)%%></div><div class="col-xs-1"><%%PLINK(indicator)%%></div></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="score" class="control-label col-lg-3">Score</label>
+					<div class="col-lg-9">
+						<input tabindex="1" maxlength="" type="text" class="form-control" name="score" id="score" value="<%%VALUE(score)%%>">
 					</div>
 				</div>
 
@@ -60,20 +81,6 @@
 				</div>
 
 				<div class="form-group">
-					<label for="created" class="control-label col-lg-3">Created</label>
-					<div class="col-lg-9">
-						<p class="form-control-static" id="created"><%%COMBOTEXT(created)%%></p>
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label for="created_by" class="control-label col-lg-3">Created by</label>
-					<div class="col-lg-9">
-						<p class="form-control-static" id="created_by"><%%VALUE(created_by)%%></p>
-					</div>
-				</div>
-
-				<div class="form-group">
 					<label for="comment" class="control-label col-lg-3">Comment</label>
 					<div class="col-lg-9">
 						<textarea tabindex="1" class="form-control" name="comment" id="comment" rows="5"><%%VALUE(comment)%%></textarea>
@@ -81,8 +88,10 @@
 				</div>
 
 				<div class="form-group">
-					<label for="reference" class="control-label col-lg-3">Reference</label>
+					<label for="reference" class="control-label col-lg-3">Reference <button class="btn btn-info btn-xs vspacer-sm" type="button" data-toggle="collapse" tabindex="-1" data-target="#reference-description"><i class="glyphicon glyphicon-info-sign"></i></button></label>
 					<div class="col-lg-9">
+						<span class="help-block collapse" id="reference-description"><div class="alert alert-info">What is the data source for this entry?</div></span>
+
 						<input tabindex="1" maxlength="255" type="text" class="form-control" name="reference" id="reference" value="<%%VALUE(reference)%%>">
 					</div>
 				</div>
@@ -105,13 +114,6 @@
 					<label for="equivalence" class="control-label col-lg-3">Equivalence</label>
 					<div class="col-lg-9">
 						<%%COMBO(equivalence)%%>
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label for="score" class="control-label col-lg-3">Score</label>
-					<div class="col-lg-9">
-						<input tabindex="1" maxlength="" type="text" class="form-control" name="score" id="score" value="<%%VALUE(score)%%>">
 					</div>
 				</div>
 
