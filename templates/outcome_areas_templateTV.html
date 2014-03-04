@@ -1,0 +1,10 @@
+<!-- Edit this file to change the layout of each record in the table view -->
+<!-- To disable clicking of a field, remove the <%%select%%> and <%%endselect%%> formatters around it-->
+
+<!-- If you wish to hide the table view header that contains the column titles, -->
+<!-- open the generated 'outcome_areas_view.php' file in your text editor and -->
+<!-- change the value of $x->ShowTableHeader to 0 -->
+
+		<td id="outcome_areas-outcome_area_id-<%%VALUE(outcome_area_id)%%>" class="outcome_areas-outcome_area_id "><%%SELECT%%><%%VALUE(outcome_area_id)%%><%%ENDSELECT%%></td>
+		<td id="outcome_areas-name-<%%VALUE(outcome_area_id)%%>" class="outcome_areas-name "><%%SELECT%%><%%VALUE(name)%%><%%ENDSELECT%%></td>
+		<td id="outcome_areas-description-<%%VALUE(outcome_area_id)%%>" class="outcome_areas-description "><%%SELECT%%><%%VALUE(description)%%><%%ENDSELECT%%></td>

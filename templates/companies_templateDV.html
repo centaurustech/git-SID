@@ -1,0 +1,147 @@
+<!-- Edit this file to change the layout of the detail view form -->
+
+<a name="detail-view"></a>
+<div class="panel-heading"><h3 class="panel-title"><strong><%%DETAIL_VIEW_TITLE%%></strong></h3></div>
+
+<div class="panel-body" id="companies_dv_container">
+	<!-- child links -->
+	<div class="row">
+		<div class="col-xs-12">
+			<a class="hidden-xs btn btn-default btn-lg pull-right hidden hspacer-sm" href="reports_view.php?filterer_company=<%%URLVALUE(company_id)%%>" id="reports_link"><i class="glyphicon glyphicon-list-alt"></i> Reports</a>
+			<a class="visible-xs btn btn-default btn-lg btn-block hidden vspacer-sm" href="reports_view.php?filterer_company=<%%URLVALUE(company_id)%%>" id="xs_reports_link"><i class="glyphicon glyphicon-list-alt"></i> Reports</a>
+			<input type="hidden" id="reports_hclink" value="reports_view.php?filterer_company=<%%URLVALUE(company_id)%%>">
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<hr>
+
+	<div class="row">
+		<!-- form inputs -->
+		<div class="col-md-8 col-lg-10" id="companies_dv_form">
+			<fieldset class="form-horizontal">
+
+				<div class="form-group">
+					<label for="name" class="control-label col-lg-3">Name</label>
+					<div class="col-lg-9">
+						<input tabindex="1" maxlength="60" type="text" class="form-control" name="name" id="name" value="<%%VALUE(name)%%>">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="client" class="control-label col-lg-3">Client</label>
+					<div class="col-lg-9">
+						<div class="row"><div class="col-xs-10"><%%COMBO(client)%%></div><div class="col-xs-1"><%%PLINK(client)%%></div></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="industry" class="control-label col-lg-3">Industry</label>
+					<div class="col-lg-9">
+						<%%COMBO(industry)%%>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="company_number" class="control-label col-lg-3">Company number</label>
+					<div class="col-lg-9">
+						<input tabindex="1" maxlength="" type="text" class="form-control" name="company_number" id="company_number" value="<%%VALUE(company_number)%%>">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="country_hq" class="control-label col-lg-3">Country based</label>
+					<div class="col-lg-9">
+						<%%COMBO(country_hq)%%>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="country_operations" class="control-label col-lg-3">Country of operations</label>
+					<div class="col-lg-9">
+						<%%COMBO(country_operations)%%>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="num_employees" class="control-label col-lg-3">Number of employees</label>
+					<div class="col-lg-9">
+						<input tabindex="1" maxlength="" type="text" class="form-control" name="num_employees" id="num_employees" value="<%%VALUE(num_employees)%%>">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="company_type" class="control-label col-lg-3">Company type</label>
+					<div class="col-lg-9">
+						<%%COMBO(company_type)%%>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="sic_code" class="control-label col-lg-3">SIC code</label>
+					<div class="col-lg-9">
+						<div class="row"><div class="col-xs-10"><%%COMBO(sic_code)%%></div><div class="col-xs-1"><%%PLINK(sic_code)%%></div></div>
+					</div>
+				</div>
+
+			</fieldset>
+		</div>
+
+		<!-- DV action buttons -->
+		<div class="col-md-4 col-lg-2" id="companies_dv_action_buttons">
+			<div class="btn-toolbar">
+				<div class="btn-group-vertical btn-group-lg" style="width: 100%;">
+					<%%UPDATE_BUTTON%%>
+				</div><p></p>
+				<div class="btn-group-vertical btn-group-lg" style="width: 100%;">
+					<%%DESELECT_BUTTON%%>
+					<%%DVPRINT_BUTTON%%>
+					<%%DELETE_BUTTON%%>
+				</div><p></p>
+				<div class="btn-group-vertical btn-group-lg" style="width: 100%;">
+					<%%INSERT_BUTTON%%>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- child records -->
+	<hr>
+	<div class="row">
+		<div class="col-lg-10 col-lg-offset-1">
+			<div id="companies-children" class="children-tabs"></div>
+		</div>
+	</div>
+
+</div><!-- /div class="panel-body" -->
+	<script>
+		jQuery(function(){
+			var formAlreadyChanged = 0;
+			jQuery('select, input[type=text], textarea').not(':disabled').eq(0).focus();
+			jQuery('form').eq(0).change(function(){
+				if(formAlreadyChanged) return;
+				if(jQuery('#deselect').length) jQuery('#deselect').removeClass('btn-default').addClass('btn-warning').get(0).lastChild.data = " <%%TRANSLATION(Cancel)%%>";
+				formAlreadyChanged = 1;
+			});
+
+			jQuery('a[href="<%%TRANSLATION(ImageFolder)%%>"]').click(function(){ return false; });
+		});
+
+		document.observe("dom:loaded", function() {
+			/* when no record is selected ('add new' mode) */
+			if($$('input[name=SelectedID]')[0].value==''){
+				/* hide links to children tables */
+				$$('a[id]').findAll(function(cl){ return cl.id.match(/_link$/); }).invoke('hide');
+				/* skip loading parent/children view */
+				return false;
+			}
+			post(
+				'parent-children.php', {
+					ParentTable: 'companies',
+					SelectedID: '<%%VALUE(company_id)%%>',
+					Operation: 'show-children'
+				},
+				'companies-children'
+			);
+		});
+	</script>

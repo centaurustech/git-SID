@@ -1,0 +1,154 @@
+<!-- Edit this file to change the layout of the detail view form -->
+
+<a name="detail-view"></a>
+<div class="panel-heading"><h3 class="panel-title"><strong><%%DETAIL_VIEW_TITLE%%></strong></h3></div>
+
+<div class="panel-body" id="entries_dv_container">
+	<!-- child links -->
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<hr>
+
+	<div class="row">
+		<!-- form inputs -->
+		<div class="col-md-8 col-lg-10" id="entries_dv_form">
+			<fieldset class="form-horizontal">
+
+				<div class="form-group">
+					<label for="entry_id" class="control-label col-lg-3">ID</label>
+					<div class="col-lg-9">
+						<p class="form-control-static" id="entry_id"><%%VALUE(entry_id)%%></p>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="report" class="control-label col-lg-3">Report</label>
+					<div class="col-lg-9">
+						<div class="row"><div class="col-xs-10"><%%COMBO(report)%%></div><div class="col-xs-1"><%%PLINK(report)%%></div></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="outcome_area" class="control-label col-lg-3">Outcome area</label>
+					<div class="col-lg-9">
+						<p class="form-control-static"><span id="outcome_area"><%%COMBOTEXT(outcome_area)%%></span> <%%PLINK(outcome_area)%%></p>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="outcome" class="control-label col-lg-3">Outcome</label>
+					<div class="col-lg-9">
+						<div class="row"><div class="col-xs-10"><%%COMBO(outcome)%%></div><div class="col-xs-1"><%%PLINK(outcome)%%></div><div class="col-xs-1"><span id="outcomeLoading"></span></div></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="beneficiary_group" class="control-label col-lg-3">Relevant beneficiary group</label>
+					<div class="col-lg-9">
+						<div class="row"><div class="col-xs-10"><%%COMBO(beneficiary_group)%%></div><div class="col-xs-1"><%%PLINK(beneficiary_group)%%></div></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="beneficiary_group_relevance" class="control-label col-lg-3">Beneficiary group relevance</label>
+					<div class="col-lg-9">
+						<%%COMBO(beneficiary_group_relevance)%%>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="created" class="control-label col-lg-3">Created</label>
+					<div class="col-lg-9">
+						<p class="form-control-static" id="created"><%%COMBOTEXT(created)%%></p>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="created_by" class="control-label col-lg-3">Created by</label>
+					<div class="col-lg-9">
+						<p class="form-control-static" id="created_by"><%%VALUE(created_by)%%></p>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="comment" class="control-label col-lg-3">Comment</label>
+					<div class="col-lg-9">
+						<textarea tabindex="1" class="form-control" name="comment" id="comment" rows="5"><%%VALUE(comment)%%></textarea>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="reference" class="control-label col-lg-3">Reference</label>
+					<div class="col-lg-9">
+						<input tabindex="1" maxlength="255" type="text" class="form-control" name="reference" id="reference" value="<%%VALUE(reference)%%>">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="reliability" class="control-label col-lg-3">Reliability</label>
+					<div class="col-lg-9">
+						<%%COMBO(reliability)%%>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="intentionality" class="control-label col-lg-3">Intentionality</label>
+					<div class="col-lg-9">
+						<%%COMBO(intentionality)%%>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="equivalence" class="control-label col-lg-3">Equivalence</label>
+					<div class="col-lg-9">
+						<%%COMBO(equivalence)%%>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="score" class="control-label col-lg-3">Score</label>
+					<div class="col-lg-9">
+						<input tabindex="1" maxlength="" type="text" class="form-control" name="score" id="score" value="<%%VALUE(score)%%>">
+					</div>
+				</div>
+
+			</fieldset>
+		</div>
+
+		<!-- DV action buttons -->
+		<div class="col-md-4 col-lg-2" id="entries_dv_action_buttons">
+			<div class="btn-toolbar">
+				<div class="btn-group-vertical btn-group-lg" style="width: 100%;">
+					<%%UPDATE_BUTTON%%>
+				</div><p></p>
+				<div class="btn-group-vertical btn-group-lg" style="width: 100%;">
+					<%%DESELECT_BUTTON%%>
+					<%%DVPRINT_BUTTON%%>
+					<%%DELETE_BUTTON%%>
+				</div><p></p>
+				<div class="btn-group-vertical btn-group-lg" style="width: 100%;">
+					<%%INSERT_BUTTON%%>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</div><!-- /div class="panel-body" -->
+	<script>
+		jQuery(function(){
+			var formAlreadyChanged = 0;
+			jQuery('select, input[type=text], textarea').not(':disabled').eq(0).focus();
+			jQuery('form').eq(0).change(function(){
+				if(formAlreadyChanged) return;
+				if(jQuery('#deselect').length) jQuery('#deselect').removeClass('btn-default').addClass('btn-warning').get(0).lastChild.data = " <%%TRANSLATION(Cancel)%%>";
+				formAlreadyChanged = 1;
+			});
+
+			jQuery('a[href="<%%TRANSLATION(ImageFolder)%%>"]').click(function(){ return false; });
+		});
+
+	</script>

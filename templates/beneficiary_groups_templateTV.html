@@ -1,0 +1,10 @@
+<!-- Edit this file to change the layout of each record in the table view -->
+<!-- To disable clicking of a field, remove the <%%select%%> and <%%endselect%%> formatters around it-->
+
+<!-- If you wish to hide the table view header that contains the column titles, -->
+<!-- open the generated 'beneficiary_groups_view.php' file in your text editor and -->
+<!-- change the value of $x->ShowTableHeader to 0 -->
+
+		<td id="beneficiary_groups-beneficiary_group_id-<%%VALUE(beneficiary_group_id)%%>" class="beneficiary_groups-beneficiary_group_id "><%%SELECT%%><%%VALUE(beneficiary_group_id)%%><%%ENDSELECT%%></td>
+		<td id="beneficiary_groups-name-<%%VALUE(beneficiary_group_id)%%>" class="beneficiary_groups-name "><%%SELECT%%><%%VALUE(name)%%><%%ENDSELECT%%></td>
+		<td id="beneficiary_groups-description-<%%VALUE(beneficiary_group_id)%%>" class="beneficiary_groups-description "><%%SELECT%%><%%VALUE(description)%%><%%ENDSELECT%%></td>

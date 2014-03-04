@@ -1,0 +1,14 @@
+<!-- Edit this file to change the layout of each record in the table view -->
+<!-- To disable clicking of a field, remove the <%%select%%> and <%%endselect%%> formatters around it-->
+
+<!-- If you wish to hide the table view header that contains the column titles, -->
+<!-- open the generated 'entries_view.php' file in your text editor and -->
+<!-- change the value of $x->ShowTableHeader to 0 -->
+
+		<td id="entries-entry_id-<%%VALUE(entry_id)%%>" class="entries-entry_id text-right"><%%SELECT%%><%%VALUE(entry_id)%%><%%ENDSELECT%%></td>
+		<td id="entries-report-<%%VALUE(entry_id)%%>" class="entries-report "><%%VALUE(report)%%></td>
+		<td id="entries-outcome_area-<%%VALUE(entry_id)%%>" class="entries-outcome_area "><%%VALUE(outcome_area)%%></td>
+		<td id="entries-outcome-<%%VALUE(entry_id)%%>" class="entries-outcome "><%%VALUE(outcome)%%></td>
+		<td id="entries-created-<%%VALUE(entry_id)%%>" class="entries-created "><%%VALUE(created)%%></td>
+		<td id="entries-created_by-<%%VALUE(entry_id)%%>" class="entries-created_by "><%%VALUE(created_by)%%></td>
+		<td id="entries-score-<%%VALUE(entry_id)%%>" class="entries-score text-right"><%%SELECT%%><%%VALUE(score)%%><%%ENDSELECT%%></td>

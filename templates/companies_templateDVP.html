@@ -1,0 +1,70 @@
+<!-- Edit this file to change the layout of the detail view print preview page -->
+
+
+<div class="panel-heading"><h3 class="panel-title">
+	<strong><%%DETAIL_VIEW_TITLE%%></strong>
+	<div class="hidden-print pull-right">
+		<button type="button" id="print" onclick="window.print();" title="<%%TRANSLATION(Print)%%>" class="btn btn-success"><i class="glyphicon glyphicon-print"></i></button>
+		<button type="submit" id="back" title="<%%TRANSLATION(Back)%%>" class="btn btn-warning"><i class="glyphicon glyphicon-remove"></i></button>
+	</div>
+	<div class="clearfix"></div>
+</h3></div>
+
+<div class="panel-body">
+	<fieldset class="form-horizontal">
+		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Name</label>
+			<div class="col-xs-9">
+				<p class="form-control-static"><%%VALUE(name)%%></p>
+			</div>
+		</div>
+		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Client</label>
+			<div class="col-xs-9">
+				<p class="form-control-static"><span id="client<%%RND1%%>"><%%COMBOTEXT(client)%%></span></p>
+			</div>
+		</div>
+		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Industry</label>
+			<div class="col-xs-9">
+				<p class="form-control-static"><%%COMBOTEXT(industry)%%></p>
+			</div>
+		</div>
+		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Company number</label>
+			<div class="col-xs-9">
+				<p class="form-control-static"><%%VALUE(company_number)%%></p>
+			</div>
+		</div>
+		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Country based</label>
+			<div class="col-xs-9">
+				<p class="form-control-static"><%%COMBOTEXT(country_hq)%%></p>
+			</div>
+		</div>
+		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Country of operations</label>
+			<div class="col-xs-9">
+				<p class="form-control-static"><%%COMBOTEXT(country_operations)%%></p>
+			</div>
+		</div>
+		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Number of employees</label>
+			<div class="col-xs-9">
+				<p class="form-control-static"><%%VALUE(num_employees)%%></p>
+			</div>
+		</div>
+		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Company type</label>
+			<div class="col-xs-9">
+				<p class="form-control-static"><%%COMBOTEXT(company_type)%%></p>
+			</div>
+		</div>
+		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">SIC code</label>
+			<div class="col-xs-9">
+				<p class="form-control-static"><span id="sic_code<%%RND1%%>"><%%COMBOTEXT(sic_code)%%></span></p>
+			</div>
+		</div>
+	</fieldset>
+</div>

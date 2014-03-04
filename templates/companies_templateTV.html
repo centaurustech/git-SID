@@ -1,0 +1,11 @@
+<!-- Edit this file to change the layout of each record in the table view -->
+<!-- To disable clicking of a field, remove the <%%select%%> and <%%endselect%%> formatters around it-->
+
+<!-- If you wish to hide the table view header that contains the column titles, -->
+<!-- open the generated 'companies_view.php' file in your text editor and -->
+<!-- change the value of $x->ShowTableHeader to 0 -->
+
+		<td id="companies-name-<%%VALUE(company_id)%%>" class="companies-name "><%%SELECT%%><%%VALUE(name)%%><%%ENDSELECT%%></td>
+		<td id="companies-client-<%%VALUE(company_id)%%>" class="companies-client "><%%VALUE(client)%%></td>
+		<td id="companies-created-<%%VALUE(company_id)%%>" class="companies-created "><%%VALUE(created)%%></td>
+		<td id="companies-created_by-<%%VALUE(company_id)%%>" class="companies-created_by "><%%VALUE(created_by)%%></td>
