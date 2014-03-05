@@ -1,5 +1,5 @@
 <?php if(!isset($Translation)) die('No direct access allowed.'); ?>
-<?php $current_table = 'companies'; ?>
+<?php $current_table = 'tax_entry'; ?>
 <script>
 	<?php echo $current_table; ?>GetChildrenRecordsList = function(command){
 		var param = {
@@ -131,9 +131,7 @@
 						<td class="<?php echo "{$parameters['ChildTable']}-{$config['display-field-names'][0]}"; ?>" id="<?php echo "{$parameters['ChildTable']}-{$config['display-field-names'][0]}-" . html_attr($record[$config['child-primary-key-index']]); ?>"><?php echo $record[0]; ?></td>
 						<td class="<?php echo "{$parameters['ChildTable']}-{$config['display-field-names'][1]}"; ?>" id="<?php echo "{$parameters['ChildTable']}-{$config['display-field-names'][1]}-" . html_attr($record[$config['child-primary-key-index']]); ?>"><?php echo $record[1]; ?></td>
 						<td class="<?php echo "{$parameters['ChildTable']}-{$config['display-field-names'][2]}"; ?>" id="<?php echo "{$parameters['ChildTable']}-{$config['display-field-names'][2]}-" . html_attr($record[$config['child-primary-key-index']]); ?>"><?php echo $record[2]; ?></td>
-						<td class="<?php echo "{$parameters['ChildTable']}-{$config['display-field-names'][3]}"; ?>" id="<?php echo "{$parameters['ChildTable']}-{$config['display-field-names'][3]}-" . html_attr($record[$config['child-primary-key-index']]); ?>"><?php if($record[3]){ ?><a href="link.php?t=<?php echo $parameters['ChildTable']; ?>&f=website&i=<?php echo urlencode($record[$config['child-primary-key-index']]); ?>" target="_blank"><?php echo $record[3]; ?></a><?php } ?></td>
-						<td class="<?php echo "{$parameters['ChildTable']}-{$config['display-field-names'][13]}"; ?>" id="<?php echo "{$parameters['ChildTable']}-{$config['display-field-names'][13]}-" . html_attr($record[$config['child-primary-key-index']]); ?>"><?php echo $record[13]; ?></td>
-						<td class="<?php echo "{$parameters['ChildTable']}-{$config['display-field-names'][14]}"; ?>" id="<?php echo "{$parameters['ChildTable']}-{$config['display-field-names'][14]}-" . html_attr($record[$config['child-primary-key-index']]); ?>"><?php echo $record[14]; ?></td>
+						<td class="<?php echo "{$parameters['ChildTable']}-{$config['display-field-names'][3]}"; ?>" id="<?php echo "{$parameters['ChildTable']}-{$config['display-field-names'][3]}-" . html_attr($record[$config['child-primary-key-index']]); ?>"><?php echo $record[3]; ?></td>
 					</tr>
 					<?php } ?>
 				</tbody>

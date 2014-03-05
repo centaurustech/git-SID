@@ -79,7 +79,7 @@
 	$x->AllowPrinting = 1;
 	$x->AllowPrintingMultiSelection = 0;
 	$x->AllowCSV = 1;
-	$x->RecordsPerPage = 10;
+	$x->RecordsPerPage = 70;
 	$x->QuickSearch = 1;
 	$x->QuickSearchText = $Translation["quick search"];
 	$x->ScriptFileName = "outcomes_view.php";

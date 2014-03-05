@@ -76,13 +76,13 @@
 			'report' => array(
 				'parent_table' => 'reports',
 				'parent_pk_field' => 'report_id',
-				'parent_caption' => 'IF(CHAR_LENGTH(`reports`.`company`) || CHAR_LENGTH(`reports`.`date`), CONCAT_WS(\'\', IF(    CHAR_LENGTH(`companies1`.`name`) || CHAR_LENGTH(`clients1`.`name`), CONCAT_WS(\'\',   `companies1`.`name`, \' - \', `clients1`.`name`), \'\'), \' - \', `reports`.`date`), \'\')',
+				'parent_caption' => 'IF(CHAR_LENGTH(`reports`.`company`) || CHAR_LENGTH(`reports`.`start_date`), CONCAT_WS(\'\', IF(    CHAR_LENGTH(`companies1`.`name`) || CHAR_LENGTH(`clients1`.`name`), CONCAT_WS(\'\',   `companies1`.`name`, \' - \', `clients1`.`name`), \'\'), \' - \', `reports`.`start_date`), \'\')',
 				'parent_from' => '`reports` LEFT JOIN `companies` as companies1 ON `companies1`.`company_id`=`reports`.`company` LEFT JOIN `clients` as clients1 ON `clients1`.`client_id`=`companies1`.`client` ',
 				'filterers' => array(),
 				'custom_query' => '',
 				'inherit_permissions' => false,
 				'list_type' => 0,
-				'not_null' => false
+				'not_null' => true
 			),
 			'outcome_area' => array(
 				'parent_table' => 'outcomes',
@@ -150,13 +150,26 @@
 			'outcome' => array(
 				'parent_table' => 'outcomes',
 				'parent_pk_field' => 'outcome_id',
-				'parent_caption' => 'IF(CHAR_LENGTH(`outcomes`.`outcome_id`) || CHAR_LENGTH(`outcomes`.`description`), CONCAT_WS(\'\', `outcomes`.`outcome_id`, \' - \', `outcomes`.`description`), \'\')',
+				'parent_caption' => '`outcomes`.`description`',
 				'parent_from' => '`outcomes` LEFT JOIN `outcome_areas` as outcome_areas1 ON `outcome_areas1`.`outcome_area_id`=`outcomes`.`outcome_area` ',
 				'filterers' => array(),
 				'custom_query' => '',
 				'inherit_permissions' => false,
 				'list_type' => 0,
 				'not_null' => false
+			)
+		),
+		'tax_entry' => array(   
+			'report' => array(
+				'parent_table' => 'reports',
+				'parent_pk_field' => 'report_id',
+				'parent_caption' => 'IF(CHAR_LENGTH(`reports`.`company`) || CHAR_LENGTH(`reports`.`start_date`), CONCAT_WS(\'\', IF(    CHAR_LENGTH(`companies1`.`name`) || CHAR_LENGTH(`clients1`.`name`), CONCAT_WS(\'\',   `companies1`.`name`, \' - \', `clients1`.`name`), \'\'), \' - \', `reports`.`start_date`), \'\')',
+				'parent_from' => '`reports` LEFT JOIN `companies` as companies1 ON `companies1`.`company_id`=`reports`.`company` LEFT JOIN `clients` as clients1 ON `clients1`.`client_id`=`companies1`.`client` ',
+				'filterers' => array(),
+				'custom_query' => '',
+				'inherit_permissions' => false,
+				'list_type' => 0,
+				'not_null' => true
 			)
 		)
 	);

@@ -22,14 +22,24 @@ function companies_insert(){
 		if($data['client'] == empty_lookup_value){ $data['client'] = ''; }
 	$data['website'] = makeSafe($_POST['website']);
 		if($data['website'] == empty_lookup_value){ $data['website'] = ''; }
+	$data['description'] = makeSafe($_POST['description']);
+		if($data['description'] == empty_lookup_value){ $data['description'] = ''; }
+	$data['founded'] = makeSafe($_POST['founded']);
+		if($data['founded'] == empty_lookup_value){ $data['founded'] = ''; }
 	$data['industry'] = makeSafe($_POST['industry']);
 		if($data['industry'] == empty_lookup_value){ $data['industry'] = ''; }
 	$data['company_number'] = makeSafe($_POST['company_number']);
 		if($data['company_number'] == empty_lookup_value){ $data['company_number'] = ''; }
 	$data['country_hq'] = makeSafe($_POST['country_hq']);
 		if($data['country_hq'] == empty_lookup_value){ $data['country_hq'] = ''; }
-	$data['country_operations'] = makeSafe($_POST['country_operations']);
-		if($data['country_operations'] == empty_lookup_value){ $data['country_operations'] = ''; }
+	if(is_array($_POST['country_operations'])){
+		$MultipleSeparator=', ';
+		foreach($_POST['country_operations'] as $k => $v)
+			$data['country_operations'] .= makeSafe($v).$MultipleSeparator;
+		$data['country_operations']=substr($data['country_operations'], 0, -1 * strlen($MultipleSeparator));
+	}else{
+		$data['country_operations']='';
+	}
 	$data['num_employees'] = makeSafe($_POST['num_employees']);
 		if($data['num_employees'] == empty_lookup_value){ $data['num_employees'] = ''; }
 	$data['company_type'] = makeSafe($_POST['company_type']);
@@ -39,7 +49,6 @@ function companies_insert(){
 	$data['created'] = parseCode('<%%creationDate%%>', true, true);
 	$data['created_by'] = parseCode('<%%creatorUsername%%>', true);
 	if($data['country_hq'] == '') $data['country_hq'] = "United Kingdom";
-	if($data['country_operations'] == '') $data['country_operations'] = "United Kingdom";
 
 	// hook: companies_before_insert
 	if(function_exists('companies_before_insert')){
@@ -48,7 +57,7 @@ function companies_insert(){
 	}
 
 	$o=array('silentErrors' => true);
-	sql('insert into `companies` set       `name`=' . (($data['name'] !== '' && $data['name'] !== NULL) ? "'{$data['name']}'" : 'NULL') . ', `client`=' . (($data['client'] !== '' && $data['client'] !== NULL) ? "'{$data['client']}'" : 'NULL') . ', `website`=' . (($data['website'] !== '' && $data['website'] !== NULL) ? "'{$data['website']}'" : 'NULL') . ', `industry`=' . (($data['industry'] !== '' && $data['industry'] !== NULL) ? "'{$data['industry']}'" : 'NULL') . ', `company_number`=' . (($data['company_number'] !== '' && $data['company_number'] !== NULL) ? "'{$data['company_number']}'" : 'NULL') . ', `country_hq`=' . (($data['country_hq'] !== '' && $data['country_hq'] !== NULL) ? "'{$data['country_hq']}'" : 'NULL') . ', `country_operations`=' . (($data['country_operations'] !== '' && $data['country_operations'] !== NULL) ? "'{$data['country_operations']}'" : 'NULL') . ', `num_employees`=' . (($data['num_employees'] !== '' && $data['num_employees'] !== NULL) ? "'{$data['num_employees']}'" : 'NULL') . ', `company_type`=' . (($data['company_type'] !== '' && $data['company_type'] !== NULL) ? "'{$data['company_type']}'" : 'NULL') . ', `sic_code`=' . (($data['sic_code'] !== '' && $data['sic_code'] !== NULL) ? "'{$data['sic_code']}'" : 'NULL') . ', `created`=' . "'{$data['created']}'" . ', `created_by`=' . "'{$data['created_by']}'", $o);
+	sql('insert into `companies` set       `name`=' . (($data['name'] !== '' && $data['name'] !== NULL) ? "'{$data['name']}'" : 'NULL') . ', `client`=' . (($data['client'] !== '' && $data['client'] !== NULL) ? "'{$data['client']}'" : 'NULL') . ', `website`=' . (($data['website'] !== '' && $data['website'] !== NULL) ? "'{$data['website']}'" : 'NULL') . ', `description`=' . (($data['description'] !== '' && $data['description'] !== NULL) ? "'{$data['description']}'" : 'NULL') . ', `founded`=' . (($data['founded'] !== '' && $data['founded'] !== NULL) ? "'{$data['founded']}'" : 'NULL') . ', `industry`=' . (($data['industry'] !== '' && $data['industry'] !== NULL) ? "'{$data['industry']}'" : 'NULL') . ', `company_number`=' . (($data['company_number'] !== '' && $data['company_number'] !== NULL) ? "'{$data['company_number']}'" : 'NULL') . ', `country_hq`=' . (($data['country_hq'] !== '' && $data['country_hq'] !== NULL) ? "'{$data['country_hq']}'" : 'NULL') . ', `country_operations`=' . (($data['country_operations'] !== '' && $data['country_operations'] !== NULL) ? "'{$data['country_operations']}'" : 'NULL') . ', `num_employees`=' . (($data['num_employees'] !== '' && $data['num_employees'] !== NULL) ? "'{$data['num_employees']}'" : 'NULL') . ', `company_type`=' . (($data['company_type'] !== '' && $data['company_type'] !== NULL) ? "'{$data['company_type']}'" : 'NULL') . ', `sic_code`=' . (($data['sic_code'] !== '' && $data['sic_code'] !== NULL) ? "'{$data['sic_code']}'" : 'NULL') . ', `created`=' . "'{$data['created']}'" . ', `created_by`=' . "'{$data['created_by']}'", $o);
 	if($o['error']!=''){
 		echo $o['error'];
 		echo "<a href=\"companies_view.php?addNew_x=1\">{$Translation['< back']}</a>";
@@ -148,14 +157,24 @@ function companies_update($selected_id){
 		if($data['client'] == empty_lookup_value){ $data['client'] = ''; }
 	$data['website'] = makeSafe($_POST['website']);
 		if($data['website'] == empty_lookup_value){ $data['website'] = ''; }
+	$data['description'] = makeSafe($_POST['description']);
+		if($data['description'] == empty_lookup_value){ $data['description'] = ''; }
+	$data['founded'] = makeSafe($_POST['founded']);
+		if($data['founded'] == empty_lookup_value){ $data['founded'] = ''; }
 	$data['industry'] = makeSafe($_POST['industry']);
 		if($data['industry'] == empty_lookup_value){ $data['industry'] = ''; }
 	$data['company_number'] = makeSafe($_POST['company_number']);
 		if($data['company_number'] == empty_lookup_value){ $data['company_number'] = ''; }
 	$data['country_hq'] = makeSafe($_POST['country_hq']);
 		if($data['country_hq'] == empty_lookup_value){ $data['country_hq'] = ''; }
-	$data['country_operations'] = makeSafe($_POST['country_operations']);
-		if($data['country_operations'] == empty_lookup_value){ $data['country_operations'] = ''; }
+	if(is_array($_POST['country_operations'])){
+		$MultipleSeparator=', ';
+		foreach($_POST['country_operations'] as $k => $v)
+			$data['country_operations'] .= makeSafe($v).$MultipleSeparator;
+		$data['country_operations']=substr($data['country_operations'], 0, -1 * strlen($MultipleSeparator));
+	}else{
+		$data['country_operations']='';
+	}
 	$data['num_employees'] = makeSafe($_POST['num_employees']);
 		if($data['num_employees'] == empty_lookup_value){ $data['num_employees'] = ''; }
 	$data['company_type'] = makeSafe($_POST['company_type']);
@@ -172,7 +191,7 @@ function companies_update($selected_id){
 	}
 
 	$o=array('silentErrors' => true);
-	sql('update `companies` set       `name`=' . (($data['name'] !== '' && $data['name'] !== NULL) ? "'{$data['name']}'" : 'NULL') . ', `client`=' . (($data['client'] !== '' && $data['client'] !== NULL) ? "'{$data['client']}'" : 'NULL') . ', `website`=' . (($data['website'] !== '' && $data['website'] !== NULL) ? "'{$data['website']}'" : 'NULL') . ', `industry`=' . (($data['industry'] !== '' && $data['industry'] !== NULL) ? "'{$data['industry']}'" : 'NULL') . ', `company_number`=' . (($data['company_number'] !== '' && $data['company_number'] !== NULL) ? "'{$data['company_number']}'" : 'NULL') . ', `country_hq`=' . (($data['country_hq'] !== '' && $data['country_hq'] !== NULL) ? "'{$data['country_hq']}'" : 'NULL') . ', `country_operations`=' . (($data['country_operations'] !== '' && $data['country_operations'] !== NULL) ? "'{$data['country_operations']}'" : 'NULL') . ', `num_employees`=' . (($data['num_employees'] !== '' && $data['num_employees'] !== NULL) ? "'{$data['num_employees']}'" : 'NULL') . ', `company_type`=' . (($data['company_type'] !== '' && $data['company_type'] !== NULL) ? "'{$data['company_type']}'" : 'NULL') . ', `sic_code`=' . (($data['sic_code'] !== '' && $data['sic_code'] !== NULL) ? "'{$data['sic_code']}'" : 'NULL') . ', `created`=' . (($data['created'] != '') ? "'{$data['created']}'" : 'NULL') . " where `company_id`='".makeSafe($selected_id)."'", $o);
+	sql('update `companies` set       `name`=' . (($data['name'] !== '' && $data['name'] !== NULL) ? "'{$data['name']}'" : 'NULL') . ', `client`=' . (($data['client'] !== '' && $data['client'] !== NULL) ? "'{$data['client']}'" : 'NULL') . ', `website`=' . (($data['website'] !== '' && $data['website'] !== NULL) ? "'{$data['website']}'" : 'NULL') . ', `description`=' . (($data['description'] !== '' && $data['description'] !== NULL) ? "'{$data['description']}'" : 'NULL') . ', `founded`=' . (($data['founded'] !== '' && $data['founded'] !== NULL) ? "'{$data['founded']}'" : 'NULL') . ', `industry`=' . (($data['industry'] !== '' && $data['industry'] !== NULL) ? "'{$data['industry']}'" : 'NULL') . ', `company_number`=' . (($data['company_number'] !== '' && $data['company_number'] !== NULL) ? "'{$data['company_number']}'" : 'NULL') . ', `country_hq`=' . (($data['country_hq'] !== '' && $data['country_hq'] !== NULL) ? "'{$data['country_hq']}'" : 'NULL') . ', `country_operations`=' . (($data['country_operations'] !== '' && $data['country_operations'] !== NULL) ? "'{$data['country_operations']}'" : 'NULL') . ', `num_employees`=' . (($data['num_employees'] !== '' && $data['num_employees'] !== NULL) ? "'{$data['num_employees']}'" : 'NULL') . ', `company_type`=' . (($data['company_type'] !== '' && $data['company_type'] !== NULL) ? "'{$data['company_type']}'" : 'NULL') . ', `sic_code`=' . (($data['sic_code'] !== '' && $data['sic_code'] !== NULL) ? "'{$data['sic_code']}'" : 'NULL') . ', `created`=' . (($data['created'] != '') ? "'{$data['created']}'" : 'NULL') . " where `company_id`='".makeSafe($selected_id)."'", $o);
 	if($o['error']!=''){
 		echo $o['error'];
 		echo '<a href="companies_view.php?SelectedID='.urlencode($selected_id)."\">{$Translation['< back']}</a>";
@@ -254,7 +273,7 @@ function companies_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $
 	$combo_country_hq->SelectName = 'country_hq';
 	// combobox: country_operations
 	$combo_country_operations = new Combo;
-	$combo_country_operations->ListType = 0;
+	$combo_country_operations->ListType = 3;
 	$combo_country_operations->MultipleSeparator = ', ';
 	$combo_country_operations->ListBoxHeight = 10;
 	$combo_country_operations->RadiosPerLine = 1;
@@ -329,10 +348,9 @@ function companies_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $
 		$combo_created->DefaultDate = $row['created'];
 	}else{
 		$combo_client->SelectedData = $filterer_client;
-		$combo_industry->SelectedText = ( $_REQUEST['FilterField'][1]=='5' && $_REQUEST['FilterOperator'][1]=='<=>' ? (get_magic_quotes_gpc() ? stripslashes($_REQUEST['FilterValue'][1]) : $_REQUEST['FilterValue'][1]) : "");
-		$combo_country_hq->SelectedText = ( $_REQUEST['FilterField'][1]=='7' && $_REQUEST['FilterOperator'][1]=='<=>' ? (get_magic_quotes_gpc() ? stripslashes($_REQUEST['FilterValue'][1]) : $_REQUEST['FilterValue'][1]) : "United Kingdom");
-		$combo_country_operations->SelectedText = ( $_REQUEST['FilterField'][1]=='8' && $_REQUEST['FilterOperator'][1]=='<=>' ? (get_magic_quotes_gpc() ? stripslashes($_REQUEST['FilterValue'][1]) : $_REQUEST['FilterValue'][1]) : "United Kingdom");
-		$combo_company_type->SelectedText = ( $_REQUEST['FilterField'][1]=='10' && $_REQUEST['FilterOperator'][1]=='<=>' ? (get_magic_quotes_gpc() ? stripslashes($_REQUEST['FilterValue'][1]) : $_REQUEST['FilterValue'][1]) : "");
+		$combo_industry->SelectedText = ( $_REQUEST['FilterField'][1]=='7' && $_REQUEST['FilterOperator'][1]=='<=>' ? (get_magic_quotes_gpc() ? stripslashes($_REQUEST['FilterValue'][1]) : $_REQUEST['FilterValue'][1]) : "");
+		$combo_country_hq->SelectedText = ( $_REQUEST['FilterField'][1]=='9' && $_REQUEST['FilterOperator'][1]=='<=>' ? (get_magic_quotes_gpc() ? stripslashes($_REQUEST['FilterValue'][1]) : $_REQUEST['FilterValue'][1]) : "United Kingdom");
+		$combo_company_type->SelectedText = ( $_REQUEST['FilterField'][1]=='12' && $_REQUEST['FilterOperator'][1]=='<=>' ? (get_magic_quotes_gpc() ? stripslashes($_REQUEST['FilterValue'][1]) : $_REQUEST['FilterValue'][1]) : "");
 		$combo_sic_code->SelectedData = $filterer_sic_code;
 	}
 	$combo_client->HTML = $combo_client->MatchText = '<span id="client-container' . $rnd1 . '"></span><input type="hidden" name="client" id="client' . $rnd1 . '">';
@@ -522,10 +540,13 @@ function companies_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $
 		$jsReadOnly .= "\tjQuery('#client_caption').prop('disabled', true).css({ color: '#555', backgroundColor: 'white' });\n";
 		$jsReadOnly .= "\tjQuery('#website').replaceWith('<p class=\"form-control-static\" id=\"website\">' + (jQuery('#website').val() || '') + '</p>');\n";
 		$jsReadOnly .= "\tjQuery('#website, #website-edit-link').hide();\n";
+		$jsReadOnly .= "\tjQuery('#description').replaceWith('<p class=\"form-control-static\" id=\"description\">' + (jQuery('#description').val() || '') + '</p>');\n";
+		$jsReadOnly .= "\tjQuery('#founded').replaceWith('<p class=\"form-control-static\" id=\"founded\">' + (jQuery('#founded').val() || '') + '</p>');\n";
 		$jsReadOnly .= "\tjQuery('#industry').replaceWith('<p class=\"form-control-static\" id=\"industry\">' + (jQuery('#industry').val() || '') + '</p>'); jQuery('#industry-multi-selection-help').hide();\n";
 		$jsReadOnly .= "\tjQuery('#company_number').replaceWith('<p class=\"form-control-static\" id=\"company_number\">' + (jQuery('#company_number').val() || '') + '</p>');\n";
 		$jsReadOnly .= "\tjQuery('#country_hq').replaceWith('<p class=\"form-control-static\" id=\"country_hq\">' + (jQuery('#country_hq').val() || '') + '</p>'); jQuery('#country_hq-multi-selection-help').hide();\n";
 		$jsReadOnly .= "\tjQuery('#country_operations').replaceWith('<p class=\"form-control-static\" id=\"country_operations\">' + (jQuery('#country_operations').val() || '') + '</p>'); jQuery('#country_operations-multi-selection-help').hide();\n";
+		$jsReadOnly .= "\tjQuery('#s2id_country_operations').remove();\n";
 		$jsReadOnly .= "\tjQuery('#num_employees').replaceWith('<p class=\"form-control-static\" id=\"num_employees\">' + (jQuery('#num_employees').val() || '') + '</p>');\n";
 		$jsReadOnly .= "\tjQuery('#company_type').replaceWith('<p class=\"form-control-static\" id=\"company_type\">' + (jQuery('#company_type').val() || '') + '</p>'); jQuery('#company_type-multi-selection-help').hide();\n";
 		$jsReadOnly .= "\tjQuery('#sic_code').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
@@ -563,6 +584,8 @@ function companies_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $
 	$templateCode=str_replace('<%%UPLOADFILE(name)%%>', '', $templateCode);
 	$templateCode=str_replace('<%%UPLOADFILE(client)%%>', '', $templateCode);
 	$templateCode=str_replace('<%%UPLOADFILE(website)%%>', '', $templateCode);
+	$templateCode=str_replace('<%%UPLOADFILE(description)%%>', '', $templateCode);
+	$templateCode=str_replace('<%%UPLOADFILE(founded)%%>', '', $templateCode);
 	$templateCode=str_replace('<%%UPLOADFILE(industry)%%>', '', $templateCode);
 	$templateCode=str_replace('<%%UPLOADFILE(company_number)%%>', '', $templateCode);
 	$templateCode=str_replace('<%%UPLOADFILE(country_hq)%%>', '', $templateCode);
@@ -583,6 +606,10 @@ function companies_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $
 		$templateCode=str_replace('<%%URLVALUE(client)%%>', urlencode($urow['client']), $templateCode);
 		$templateCode=str_replace('<%%VALUE(website)%%>', htmlspecialchars($row['website'], ENT_QUOTES), $templateCode);
 		$templateCode=str_replace('<%%URLVALUE(website)%%>', urlencode($urow['website']), $templateCode);
+		$templateCode=str_replace('<%%VALUE(description)%%>', htmlspecialchars($row['description'], ENT_QUOTES), $templateCode);
+		$templateCode=str_replace('<%%URLVALUE(description)%%>', urlencode($urow['description']), $templateCode);
+		$templateCode=str_replace('<%%VALUE(founded)%%>', htmlspecialchars($row['founded'], ENT_QUOTES), $templateCode);
+		$templateCode=str_replace('<%%URLVALUE(founded)%%>', urlencode($urow['founded']), $templateCode);
 		$templateCode=str_replace('<%%VALUE(industry)%%>', htmlspecialchars($row['industry'], ENT_QUOTES), $templateCode);
 		$templateCode=str_replace('<%%URLVALUE(industry)%%>', urlencode($urow['industry']), $templateCode);
 		$templateCode=str_replace('<%%VALUE(company_number)%%>', htmlspecialchars($row['company_number'], ENT_QUOTES), $templateCode);
@@ -610,14 +637,18 @@ function companies_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $
 		$templateCode=str_replace('<%%URLVALUE(client)%%>', urlencode(''), $templateCode);
 		$templateCode=str_replace('<%%VALUE(website)%%>', '', $templateCode);
 		$templateCode=str_replace('<%%URLVALUE(website)%%>', urlencode(''), $templateCode);
+		$templateCode=str_replace('<%%VALUE(description)%%>', '', $templateCode);
+		$templateCode=str_replace('<%%URLVALUE(description)%%>', urlencode(''), $templateCode);
+		$templateCode=str_replace('<%%VALUE(founded)%%>', '', $templateCode);
+		$templateCode=str_replace('<%%URLVALUE(founded)%%>', urlencode(''), $templateCode);
 		$templateCode=str_replace('<%%VALUE(industry)%%>', '', $templateCode);
 		$templateCode=str_replace('<%%URLVALUE(industry)%%>', urlencode(''), $templateCode);
 		$templateCode=str_replace('<%%VALUE(company_number)%%>', '', $templateCode);
 		$templateCode=str_replace('<%%URLVALUE(company_number)%%>', urlencode(''), $templateCode);
 		$templateCode=str_replace('<%%VALUE(country_hq)%%>', 'United Kingdom', $templateCode);
 		$templateCode=str_replace('<%%URLVALUE(country_hq)%%>', urlencode('United Kingdom'), $templateCode);
-		$templateCode=str_replace('<%%VALUE(country_operations)%%>', 'United Kingdom', $templateCode);
-		$templateCode=str_replace('<%%URLVALUE(country_operations)%%>', urlencode('United Kingdom'), $templateCode);
+		$templateCode=str_replace('<%%VALUE(country_operations)%%>', '', $templateCode);
+		$templateCode=str_replace('<%%URLVALUE(country_operations)%%>', urlencode(''), $templateCode);
 		$templateCode=str_replace('<%%VALUE(num_employees)%%>', '', $templateCode);
 		$templateCode=str_replace('<%%URLVALUE(num_employees)%%>', urlencode(''), $templateCode);
 		$templateCode=str_replace('<%%VALUE(company_type)%%>', '', $templateCode);

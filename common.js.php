@@ -50,6 +50,7 @@ function reports_validateData(){
 	return true;
 }
 function entries_validateData(){
+	if($('report').value == ''){ modal_window({ message: '<div class="alert alert-danger"><?php echo addslashes($Translation['field not null']); ?></div>', title: "<?php echo addslashes($Translation['error:']); ?> Report", close: function(){ jQuery('#report').focus(); } }); return false; };
 	return true;
 }
 function outcome_areas_validateData(){
@@ -62,6 +63,10 @@ function beneficiary_groups_validateData(){
 	return true;
 }
 function indicators_validateData(){
+	return true;
+}
+function tax_entry_validateData(){
+	if($('report').value == ''){ modal_window({ message: '<div class="alert alert-danger"><?php echo addslashes($Translation['field not null']); ?></div>', title: "<?php echo addslashes($Translation['error:']); ?> Report", close: function(){ jQuery('#report').focus(); } }); return false; };
 	return true;
 }
 function post(url, params, update, disable, loading){

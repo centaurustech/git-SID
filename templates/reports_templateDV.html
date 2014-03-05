@@ -13,6 +13,9 @@
 			<a class="hidden-xs btn btn-default btn-lg pull-right hidden hspacer-sm" href="entries_view.php?filterer_report=<%%URLVALUE(report_id)%%>" id="entries_link"><i class="glyphicon glyphicon-list-alt"></i> Entries</a>
 			<a class="visible-xs btn btn-default btn-lg btn-block hidden vspacer-sm" href="entries_view.php?filterer_report=<%%URLVALUE(report_id)%%>" id="xs_entries_link"><i class="glyphicon glyphicon-list-alt"></i> Entries</a>
 			<input type="hidden" id="entries_hclink" value="entries_view.php?filterer_report=<%%URLVALUE(report_id)%%>">
+			<a class="hidden-xs btn btn-default btn-lg pull-right hidden hspacer-sm" href="tax_entry_view.php?filterer_report=<%%URLVALUE(report_id)%%>" id="tax_entry_link"><i class="glyphicon glyphicon-list-alt"></i> Tax</a>
+			<a class="visible-xs btn btn-default btn-lg btn-block hidden vspacer-sm" href="tax_entry_view.php?filterer_report=<%%URLVALUE(report_id)%%>" id="xs_tax_entry_link"><i class="glyphicon glyphicon-list-alt"></i> Tax</a>
+			<input type="hidden" id="tax_entry_hclink" value="tax_entry_view.php?filterer_report=<%%URLVALUE(report_id)%%>">
 			<div class="clearfix"></div>
 		</div>
 	</div>
@@ -24,9 +27,16 @@
 			<fieldset class="form-horizontal">
 
 				<div class="form-group">
-					<label for="date" class="control-label col-lg-3">Date of Report</label>
+					<label for="start_date" class="control-label col-lg-3">Report start date<span class="text-danger"><%%TRANSLATION(*)%%></span></label>
 					<div class="col-lg-9">
-						<%%COMBO(date)%%>
+						<%%COMBO(start_date)%%>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="end_date" class="control-label col-lg-3">Report end date</label>
+					<div class="col-lg-9">
+						<%%COMBO(end_date)%%>
 					</div>
 				</div>
 

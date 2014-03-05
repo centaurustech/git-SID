@@ -44,7 +44,8 @@
 				"outcome_areas"=>"Outcome areas",
 				"outcomes"=>"Outcomes",
 				"beneficiary_groups"=>"Beneficiary groups",
-				"indicators"=>"Indicators"
+				"indicators"=>"Indicators",
+				"tax_entry"=>"Tax"
 				);
 
 			return $arrTables;
@@ -432,7 +433,7 @@
 
 		if($adminGroupID){
 			// check that admins can access all tables
-			$all_tables = array(  'clients' => 0, 'companies' => 0, 'sic' => 0, 'reports' => 0, 'entries' => 0, 'outcome_areas' => 0, 'outcomes' => 0, 'beneficiary_groups' => 0, 'indicators' => 0);
+			$all_tables = array(  'clients' => 0, 'companies' => 0, 'sic' => 0, 'reports' => 0, 'entries' => 0, 'outcome_areas' => 0, 'outcomes' => 0, 'beneficiary_groups' => 0, 'indicators' => 0, 'tax_entry' => 0);
 			$res = sql("select tableName from membership_grouppermissions where groupID='$adminGroupID'", $eo);
 			while($row = mysql_fetch_row($res)){
 				// for all found tables, set all_tables flag to 1, indicating that the table has a record in Admins permissions

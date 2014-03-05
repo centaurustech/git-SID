@@ -23,7 +23,8 @@
 	// Fields that can be displayed in the table view
 	$x->QueryFieldsTV=array(   
 		"`reports`.`report_id`" => "report_id",
-		"if(`reports`.`date`,date_format(`reports`.`date`,'%d/%m/%Y'),'')" => "date",
+		"if(`reports`.`start_date`,date_format(`reports`.`start_date`,'%d/%m/%Y'),'')" => "start_date",
+		"if(`reports`.`end_date`,date_format(`reports`.`end_date`,'%d/%m/%Y'),'')" => "end_date",
 		"IF(    CHAR_LENGTH(`companies1`.`name`) || CHAR_LENGTH(`clients1`.`name`), CONCAT_WS('',   `companies1`.`name`, ' - ', `clients1`.`name`), '') /* Company */" => "company",
 		"if(`reports`.`created`,date_format(`reports`.`created`,'%d/%m/%Y'),'')" => "created",
 		"`reports`.`created_by`" => "created_by",
@@ -32,17 +33,19 @@
 	// mapping incoming sort by requests to actual query fields
 	$x->SortFields = array(   
 		1 => '`reports`.`report_id`',
-		2 => '`reports`.`date`',
-		3 => 3,
-		4 => '`reports`.`created`',
-		5 => 5,
-		6 => '`reports`.`average_score`'
+		2 => '`reports`.`start_date`',
+		3 => '`reports`.`end_date`',
+		4 => 4,
+		5 => '`reports`.`created`',
+		6 => 6,
+		7 => '`reports`.`average_score`'
 	);
 
 	// Fields that can be displayed in the csv file
 	$x->QueryFieldsCSV=array(   
 		"`reports`.`report_id`" => "report_id",
-		"if(`reports`.`date`,date_format(`reports`.`date`,'%d/%m/%Y'),'')" => "date",
+		"if(`reports`.`start_date`,date_format(`reports`.`start_date`,'%d/%m/%Y'),'')" => "start_date",
+		"if(`reports`.`end_date`,date_format(`reports`.`end_date`,'%d/%m/%Y'),'')" => "end_date",
 		"IF(    CHAR_LENGTH(`companies1`.`name`) || CHAR_LENGTH(`clients1`.`name`), CONCAT_WS('',   `companies1`.`name`, ' - ', `clients1`.`name`), '') /* Company */" => "company",
 		"if(`reports`.`created`,date_format(`reports`.`created`,'%d/%m/%Y'),'')" => "created",
 		"`reports`.`created_by`" => "created_by",
@@ -51,7 +54,8 @@
 	// Fields that can be filtered
 	$x->QueryFieldsFilters=array(   
 		"`reports`.`report_id`" => "ID",
-		"`reports`.`date`" => "Date of Report",
+		"`reports`.`start_date`" => "Report start date",
+		"`reports`.`end_date`" => "Report end date",
 		"IF(    CHAR_LENGTH(`companies1`.`name`) || CHAR_LENGTH(`clients1`.`name`), CONCAT_WS('',   `companies1`.`name`, ' - ', `clients1`.`name`), '') /* Company */" => "Company",
 		"`reports`.`created`" => "Created",
 		"`reports`.`created_by`" => "Created by",
@@ -61,7 +65,8 @@
 	// Fields that can be quick searched
 	$x->QueryFieldsQS=array(   
 		"`reports`.`report_id`" => "report_id",
-		"if(`reports`.`date`,date_format(`reports`.`date`,'%d/%m/%Y'),'')" => "date",
+		"if(`reports`.`start_date`,date_format(`reports`.`start_date`,'%d/%m/%Y'),'')" => "start_date",
+		"if(`reports`.`end_date`,date_format(`reports`.`end_date`,'%d/%m/%Y'),'')" => "end_date",
 		"IF(    CHAR_LENGTH(`companies1`.`name`) || CHAR_LENGTH(`clients1`.`name`), CONCAT_WS('',   `companies1`.`name`, ' - ', `clients1`.`name`), '') /* Company */" => "company",
 		"if(`reports`.`created`,date_format(`reports`.`created`,'%d/%m/%Y'),'')" => "created",
 		"`reports`.`created_by`" => "created_by",
@@ -98,10 +103,10 @@
 	$x->TableIcon = "resources/table_icons/application_from_storage.png";
 	$x->PrimaryKey = "`reports`.`report_id`";
 
-	$x->ColWidth   = array(  30, 150);
-	$x->ColCaption = array("Date of Report", "Company");
-	$x->ColFieldName = array('date', 'company');
-	$x->ColNumber  = array(2, 3);
+	$x->ColWidth   = array(  150, 150, 150);
+	$x->ColCaption = array("Report start date", "Report end date", "Company");
+	$x->ColFieldName = array('start_date', 'end_date', 'company');
+	$x->ColNumber  = array(2, 3, 4);
 
 	$x->Template = 'templates/reports_templateTV.html';
 	$x->SelectedTemplate = 'templates/reports_templateTVS.html';

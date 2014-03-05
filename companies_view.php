@@ -26,6 +26,8 @@
 		"`companies`.`name`" => "name",
 		"IF(    CHAR_LENGTH(`clients1`.`name`), CONCAT_WS('',   `clients1`.`name`), '') /* Client */" => "client",
 		"`companies`.`website`" => "website",
+		"`companies`.`description`" => "description",
+		"`companies`.`founded`" => "founded",
 		"`companies`.`industry`" => "industry",
 		"`companies`.`company_number`" => "company_number",
 		"`companies`.`country_hq`" => "country_hq",
@@ -43,14 +45,16 @@
 		3 => 3,
 		4 => 4,
 		5 => 5,
-		6 => '`companies`.`company_number`',
+		6 => '`companies`.`founded`',
 		7 => 7,
-		8 => 8,
-		9 => '`companies`.`num_employees`',
+		8 => '`companies`.`company_number`',
+		9 => 9,
 		10 => 10,
-		11 => 11,
-		12 => '`companies`.`created`',
-		13 => 13
+		11 => '`companies`.`num_employees`',
+		12 => 12,
+		13 => 13,
+		14 => '`companies`.`created`',
+		15 => 15
 	);
 
 	// Fields that can be displayed in the csv file
@@ -59,6 +63,8 @@
 		"`companies`.`name`" => "name",
 		"IF(    CHAR_LENGTH(`clients1`.`name`), CONCAT_WS('',   `clients1`.`name`), '') /* Client */" => "client",
 		"`companies`.`website`" => "website",
+		"`companies`.`description`" => "description",
+		"`companies`.`founded`" => "founded",
 		"`companies`.`industry`" => "industry",
 		"`companies`.`company_number`" => "company_number",
 		"`companies`.`country_hq`" => "country_hq",
@@ -75,6 +81,8 @@
 		"`companies`.`name`" => "Name",
 		"IF(    CHAR_LENGTH(`clients1`.`name`), CONCAT_WS('',   `clients1`.`name`), '') /* Client */" => "Client",
 		"`companies`.`website`" => "Website",
+		"`companies`.`description`" => "Description",
+		"`companies`.`founded`" => "Year founded",
 		"`companies`.`industry`" => "Industry",
 		"`companies`.`company_number`" => "Company number",
 		"`companies`.`country_hq`" => "Country based",
@@ -92,6 +100,8 @@
 		"`companies`.`name`" => "name",
 		"IF(    CHAR_LENGTH(`clients1`.`name`), CONCAT_WS('',   `clients1`.`name`), '') /* Client */" => "client",
 		"`companies`.`website`" => "website",
+		"`companies`.`description`" => "description",
+		"`companies`.`founded`" => "founded",
 		"`companies`.`industry`" => "industry",
 		"`companies`.`company_number`" => "company_number",
 		"`companies`.`country_hq`" => "country_hq",
@@ -136,7 +146,7 @@
 	$x->ColWidth   = array(  20, 150, 150, 150, 20, 30);
 	$x->ColCaption = array("ID", "Name", "Client", "Website", "Date created", "Created by");
 	$x->ColFieldName = array('company_id', 'name', 'client', 'website', 'created', 'created_by');
-	$x->ColNumber  = array(1, 2, 3, 4, 12, 13);
+	$x->ColNumber  = array(1, 2, 3, 4, 14, 15);
 
 	$x->Template = 'templates/companies_templateTV.html';
 	$x->SelectedTemplate = 'templates/companies_templateTVS.html';

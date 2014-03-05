@@ -16,12 +16,19 @@ function reports_insert(){
 		return false;
 	}
 
-	$data['date'] = intval($_POST['dateYear']) . '-' . intval($_POST['dateMonth']) . '-' . intval($_POST['dateDay']);
-	$data['date'] = parseMySQLDate($data['date'], '1');
+	$data['start_date'] = intval($_POST['start_dateYear']) . '-' . intval($_POST['start_dateMonth']) . '-' . intval($_POST['start_dateDay']);
+	$data['start_date'] = parseMySQLDate($data['start_date'], '');
+	$data['end_date'] = intval($_POST['end_dateYear']) . '-' . intval($_POST['end_dateMonth']) . '-' . intval($_POST['end_dateDay']);
+	$data['end_date'] = parseMySQLDate($data['end_date'], '');
 	$data['company'] = makeSafe($_POST['company']);
 		if($data['company'] == empty_lookup_value){ $data['company'] = ''; }
 	$data['created'] = parseCode('<%%creationDate%%>', true, true);
 	$data['created_by'] = parseCode('<%%creatorUsername%%>', true);
+	if($data['start_date']== ''){
+		echo StyleSheet() . "\n\n<div class=\"alert alert-danger\">" . $Translation['error:'] . " 'Report start date': " . $Translation['field not null'] . '<br /><br />';
+		echo '<a href="" onclick="history.go(-1); return false;">'.$Translation['< back'].'</a></div>';
+		exit;
+	}
 
 	// hook: reports_before_insert
 	if(function_exists('reports_before_insert')){
@@ -30,7 +37,7 @@ function reports_insert(){
 	}
 
 	$o=array('silentErrors' => true);
-	sql('insert into `reports` set       `date`=' . (($data['date'] !== '' && $data['date'] !== NULL) ? "'{$data['date']}'" : 'NULL') . ', `company`=' . (($data['company'] !== '' && $data['company'] !== NULL) ? "'{$data['company']}'" : 'NULL') . ', `created`=' . "'{$data['created']}'" . ', `created_by`=' . "'{$data['created_by']}'", $o);
+	sql('insert into `reports` set       `start_date`=' . (($data['start_date'] !== '' && $data['start_date'] !== NULL) ? "'{$data['start_date']}'" : 'NULL') . ', `end_date`=' . (($data['end_date'] !== '' && $data['end_date'] !== NULL) ? "'{$data['end_date']}'" : 'NULL') . ', `company`=' . (($data['company'] !== '' && $data['company'] !== NULL) ? "'{$data['company']}'" : 'NULL') . ', `created`=' . "'{$data['created']}'" . ', `created_by`=' . "'{$data['created_by']}'", $o);
 	if($o['error']!=''){
 		echo $o['error'];
 		echo "<a href=\"reports_view.php?addNew_x=1\">{$Translation['< back']}</a>";
@@ -97,6 +104,25 @@ function reports_delete($selected_id, $AllowDeleteOfParents=false, $skipChecks=f
 		return $RetMsg;
 	}
 
+	// child table: tax_entry
+	$res = sql("select `report_id` from `reports` where `report_id`='$selected_id'", $eo);
+	$report_id = mysql_fetch_row($res);
+	$rires = sql("select count(1) from `tax_entry` where `report`='".addslashes($report_id[0])."'", $eo);
+	$rirow = mysql_fetch_row($rires);
+	if($rirow[0] && !$AllowDeleteOfParents && !$skipChecks){
+		$RetMsg = $Translation["couldn't delete"];
+		$RetMsg = str_replace("<RelatedRecords>", $rirow[0], $RetMsg);
+		$RetMsg = str_replace("<TableName>", "tax_entry", $RetMsg);
+		return $RetMsg;
+	}elseif($rirow[0] && $AllowDeleteOfParents && !$skipChecks){
+		$RetMsg = $Translation["confirm delete"];
+		$RetMsg = str_replace("<RelatedRecords>", $rirow[0], $RetMsg);
+		$RetMsg = str_replace("<TableName>", "tax_entry", $RetMsg);
+		$RetMsg = str_replace("<Delete>", "<input tabindex=\"2\" type=\"button\" class=\"button\" value=\"".$Translation['yes']."\" onClick=\"window.location='reports_view.php?SelectedID=".urlencode($selected_id)."&delete_x=1&confirmed=1';\">", $RetMsg);
+		$RetMsg = str_replace("<Cancel>", "<input tabindex=\"2\" type=\"button\" class=\"button\" value=\"".$Translation['no']."\" onClick=\"window.location='reports_view.php?SelectedID=".urlencode($selected_id)."';\">", $RetMsg);
+		return $RetMsg;
+	}
+
 	sql("delete from `reports` where `report_id`='$selected_id'", $eo);
 
 	// hook: reports_after_delete
@@ -124,8 +150,15 @@ function reports_update($selected_id){
 		return false;
 	}
 
-	$data['date'] = intval($_POST['dateYear']) . '-' . intval($_POST['dateMonth']) . '-' . intval($_POST['dateDay']);
-	$data['date'] = parseMySQLDate($data['date'], '1');
+	$data['start_date'] = intval($_POST['start_dateYear']) . '-' . intval($_POST['start_dateMonth']) . '-' . intval($_POST['start_dateDay']);
+	$data['start_date'] = parseMySQLDate($data['start_date'], '');
+	if($data['start_date']==''){
+		echo StyleSheet() . "\n\n<div class=\"alert alert-danger\">{$Translation['error:']} 'Report start date': {$Translation['field not null']}<br /><br />";
+		echo '<a href="" onclick="history.go(-1); return false;">'.$Translation['< back'].'</a></div>';
+		exit;
+	}
+	$data['end_date'] = intval($_POST['end_dateYear']) . '-' . intval($_POST['end_dateMonth']) . '-' . intval($_POST['end_dateDay']);
+	$data['end_date'] = parseMySQLDate($data['end_date'], '');
 	$data['company'] = makeSafe($_POST['company']);
 		if($data['company'] == empty_lookup_value){ $data['company'] = ''; }
 	$data['created'] = parseMySQLDate('', '<%%creationDate%%>');
@@ -138,7 +171,7 @@ function reports_update($selected_id){
 	}
 
 	$o=array('silentErrors' => true);
-	sql('update `reports` set       `date`=' . (($data['date'] !== '' && $data['date'] !== NULL) ? "'{$data['date']}'" : 'NULL') . ', `company`=' . (($data['company'] !== '' && $data['company'] !== NULL) ? "'{$data['company']}'" : 'NULL') . ', `created`=' . (($data['created'] != '') ? "'{$data['created']}'" : 'NULL') . " where `report_id`='".makeSafe($selected_id)."'", $o);
+	sql('update `reports` set       `start_date`=' . (($data['start_date'] !== '' && $data['start_date'] !== NULL) ? "'{$data['start_date']}'" : 'NULL') . ', `end_date`=' . (($data['end_date'] !== '' && $data['end_date'] !== NULL) ? "'{$data['end_date']}'" : 'NULL') . ', `company`=' . (($data['company'] !== '' && $data['company'] !== NULL) ? "'{$data['company']}'" : 'NULL') . ', `created`=' . (($data['created'] != '') ? "'{$data['created']}'" : 'NULL') . " where `report_id`='".makeSafe($selected_id)."'", $o);
 	if($o['error']!=''){
 		echo $o['error'];
 		echo '<a href="reports_view.php?SelectedID='.urlencode($selected_id)."\">{$Translation['< back']}</a>";
@@ -185,14 +218,22 @@ function reports_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Al
 
 	// unique random identifier
 	$rnd1 = ($dvprint ? rand(1000000, 9999999) : '');
-	// combobox: date
-	$combo_date = new DateCombo;
-	$combo_date->DateFormat = "dmy";
-	$combo_date->MinYear = 1900;
-	$combo_date->MaxYear = 2100;
-	$combo_date->DefaultDate = parseMySQLDate('1', '1');
-	$combo_date->MonthNames = $Translation['month names'];
-	$combo_date->NamePrefix = 'date';
+	// combobox: start_date
+	$combo_start_date = new DateCombo;
+	$combo_start_date->DateFormat = "dmy";
+	$combo_start_date->MinYear = 1900;
+	$combo_start_date->MaxYear = 2100;
+	$combo_start_date->DefaultDate = parseMySQLDate('', '');
+	$combo_start_date->MonthNames = $Translation['month names'];
+	$combo_start_date->NamePrefix = 'start_date';
+	// combobox: end_date
+	$combo_end_date = new DateCombo;
+	$combo_end_date->DateFormat = "dmy";
+	$combo_end_date->MinYear = 1900;
+	$combo_end_date->MaxYear = 2100;
+	$combo_end_date->DefaultDate = parseMySQLDate('', '');
+	$combo_end_date->MonthNames = $Translation['month names'];
+	$combo_end_date->NamePrefix = 'end_date';
 	// combobox: company
 	$combo_company = new DataCombo;
 	// combobox: created
@@ -231,7 +272,8 @@ function reports_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Al
 		$urow = $row; /* unsanitized data */
 		$hc = new CI_Input();
 		$row = $hc->xss_clean($row); /* sanitize data */
-		$combo_date->DefaultDate = $row['date'];
+		$combo_start_date->DefaultDate = $row['start_date'];
+		$combo_end_date->DefaultDate = $row['end_date'];
 		$combo_company->SelectedData = $row['company'];
 		$combo_created->DefaultDate = $row['created'];
 	}else{
@@ -358,8 +400,10 @@ function reports_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Al
 
 	// set records to read only if user can't insert new records and can't edit current record
 	if(($selected_id && !$AllowUpdate && !$arrPerm[1]) || (!$selected_id && !$arrPerm[1])){
-		$jsReadOnly .= "\tjQuery('#date').prop('readonly', true);\n";
-		$jsReadOnly .= "\tjQuery('#dateDay, #dateMonth, #dateYear').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
+		$jsReadOnly .= "\tjQuery('#start_date').prop('readonly', true);\n";
+		$jsReadOnly .= "\tjQuery('#start_dateDay, #start_dateMonth, #start_dateYear').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
+		$jsReadOnly .= "\tjQuery('#end_date').prop('readonly', true);\n";
+		$jsReadOnly .= "\tjQuery('#end_dateDay, #end_dateMonth, #end_dateYear').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
 		$jsReadOnly .= "\tjQuery('#company').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
 		$jsReadOnly .= "\tjQuery('#company_caption').prop('disabled', true).css({ color: '#555', backgroundColor: 'white' });\n";
 
@@ -367,8 +411,10 @@ function reports_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Al
 	}
 
 	// process combos
-	$templateCode=str_replace('<%%COMBO(date)%%>', ($selected_id && !$arrPerm[3] ? '<p class="form-control-static">' . $combo_date->GetHTML(true) . '</p>' : $combo_date->GetHTML()), $templateCode);
-	$templateCode=str_replace('<%%COMBOTEXT(date)%%>', $combo_date->GetHTML(true), $templateCode);
+	$templateCode=str_replace('<%%COMBO(start_date)%%>', ($selected_id && !$arrPerm[3] ? '<p class="form-control-static">' . $combo_start_date->GetHTML(true) . '</p>' : $combo_start_date->GetHTML()), $templateCode);
+	$templateCode=str_replace('<%%COMBOTEXT(start_date)%%>', $combo_start_date->GetHTML(true), $templateCode);
+	$templateCode=str_replace('<%%COMBO(end_date)%%>', ($selected_id && !$arrPerm[3] ? '<p class="form-control-static">' . $combo_end_date->GetHTML(true) . '</p>' : $combo_end_date->GetHTML()), $templateCode);
+	$templateCode=str_replace('<%%COMBOTEXT(end_date)%%>', $combo_end_date->GetHTML(true), $templateCode);
 	$templateCode=str_replace('<%%COMBO(company)%%>', $combo_company->HTML, $templateCode);
 	$templateCode=str_replace('<%%COMBOTEXT(company)%%>', $combo_company->MatchText, $templateCode);
 	$templateCode=str_replace('<%%URLCOMBOTEXT(company)%%>', urlencode($combo_company->MatchText), $templateCode);
@@ -382,7 +428,8 @@ function reports_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Al
 
 	// process images
 	$templateCode=str_replace('<%%UPLOADFILE(report_id)%%>', '', $templateCode);
-	$templateCode=str_replace('<%%UPLOADFILE(date)%%>', '', $templateCode);
+	$templateCode=str_replace('<%%UPLOADFILE(start_date)%%>', '', $templateCode);
+	$templateCode=str_replace('<%%UPLOADFILE(end_date)%%>', '', $templateCode);
 	$templateCode=str_replace('<%%UPLOADFILE(company)%%>', '', $templateCode);
 	$templateCode=str_replace('<%%UPLOADFILE(created)%%>', '', $templateCode);
 	$templateCode=str_replace('<%%UPLOADFILE(created_by)%%>', '', $templateCode);
@@ -392,8 +439,10 @@ function reports_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Al
 	if($selected_id){
 		$templateCode=str_replace('<%%VALUE(report_id)%%>', htmlspecialchars($row['report_id'], ENT_QUOTES), $templateCode);
 		$templateCode=str_replace('<%%URLVALUE(report_id)%%>', urlencode($urow['report_id']), $templateCode);
-		$templateCode=str_replace('<%%VALUE(date)%%>', @date('d/m/Y', @strtotime(htmlspecialchars($row['date'], ENT_QUOTES))), $templateCode);
-		$templateCode=str_replace('<%%URLVALUE(date)%%>', urlencode(@date('d/m/Y', @strtotime(htmlspecialchars($urow['date'], ENT_QUOTES)))), $templateCode);
+		$templateCode=str_replace('<%%VALUE(start_date)%%>', @date('d/m/Y', @strtotime(htmlspecialchars($row['start_date'], ENT_QUOTES))), $templateCode);
+		$templateCode=str_replace('<%%URLVALUE(start_date)%%>', urlencode(@date('d/m/Y', @strtotime(htmlspecialchars($urow['start_date'], ENT_QUOTES)))), $templateCode);
+		$templateCode=str_replace('<%%VALUE(end_date)%%>', @date('d/m/Y', @strtotime(htmlspecialchars($row['end_date'], ENT_QUOTES))), $templateCode);
+		$templateCode=str_replace('<%%URLVALUE(end_date)%%>', urlencode(@date('d/m/Y', @strtotime(htmlspecialchars($urow['end_date'], ENT_QUOTES)))), $templateCode);
 		$templateCode=str_replace('<%%VALUE(company)%%>', htmlspecialchars($row['company'], ENT_QUOTES), $templateCode);
 		$templateCode=str_replace('<%%URLVALUE(company)%%>', urlencode($urow['company']), $templateCode);
 		$templateCode=str_replace('<%%VALUE(created)%%>', @date('d/m/Y', @strtotime(htmlspecialchars($row['created'], ENT_QUOTES))), $templateCode);
@@ -405,8 +454,10 @@ function reports_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $Al
 	}else{
 		$templateCode=str_replace('<%%VALUE(report_id)%%>', '', $templateCode);
 		$templateCode=str_replace('<%%URLVALUE(report_id)%%>', urlencode(''), $templateCode);
-		$templateCode=str_replace('<%%VALUE(date)%%>', '1', $templateCode);
-		$templateCode=str_replace('<%%URLVALUE(date)%%>', urlencode('1'), $templateCode);
+		$templateCode=str_replace('<%%VALUE(start_date)%%>', '', $templateCode);
+		$templateCode=str_replace('<%%URLVALUE(start_date)%%>', urlencode(''), $templateCode);
+		$templateCode=str_replace('<%%VALUE(end_date)%%>', '', $templateCode);
+		$templateCode=str_replace('<%%URLVALUE(end_date)%%>', urlencode(''), $templateCode);
 		$templateCode=str_replace('<%%VALUE(company)%%>', '', $templateCode);
 		$templateCode=str_replace('<%%URLVALUE(company)%%>', urlencode(''), $templateCode);
 		$templateCode=str_replace('<%%VALUE(created)%%>', '<%%creationDate%%>', $templateCode);

@@ -173,6 +173,24 @@ indicators_delete1Tip=["",spacer+"This option allows each member of the group to
 indicators_delete2Tip=["",spacer+"This option allows each member of the group to delete any record owned by any member of the group in the 'Indicators' table."];
 indicators_delete3Tip=["",spacer+"This option allows each member of the group to delete any records in the 'Indicators' table."];
 
+// tax_entry table
+tax_entry_addTip=["",spacer+"This option allows all members of the group to add records to the 'Tax' table. A member who adds a record to the table becomes the 'owner' of that record."];
+
+tax_entry_view0Tip=["",spacer+"This option prohibits all members of the group from viewing any record in the 'Tax' table."];
+tax_entry_view1Tip=["",spacer+"This option allows each member of the group to view only his own records in the 'Tax' table."];
+tax_entry_view2Tip=["",spacer+"This option allows each member of the group to view any record owned by any member of the group in the 'Tax' table."];
+tax_entry_view3Tip=["",spacer+"This option allows each member of the group to view all records in the 'Tax' table."];
+
+tax_entry_edit0Tip=["",spacer+"This option prohibits all members of the group from modifying any record in the 'Tax' table."];
+tax_entry_edit1Tip=["",spacer+"This option allows each member of the group to edit only his own records in the 'Tax' table."];
+tax_entry_edit2Tip=["",spacer+"This option allows each member of the group to edit any record owned by any member of the group in the 'Tax' table."];
+tax_entry_edit3Tip=["",spacer+"This option allows each member of the group to edit any records in the 'Tax' table, regardless of their owner."];
+
+tax_entry_delete0Tip=["",spacer+"This option prohibits all members of the group from deleting any record in the 'Tax' table."];
+tax_entry_delete1Tip=["",spacer+"This option allows each member of the group to delete only his own records in the 'Tax' table."];
+tax_entry_delete2Tip=["",spacer+"This option allows each member of the group to delete any record owned by any member of the group in the 'Tax' table."];
+tax_entry_delete3Tip=["",spacer+"This option allows each member of the group to delete any records in the 'Tax' table."];
+
 /*
 	Style syntax:
 	-------------

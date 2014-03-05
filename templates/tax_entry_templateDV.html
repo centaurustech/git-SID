@@ -3,7 +3,7 @@
 <a name="detail-view"></a>
 <div class="panel-heading"><h3 class="panel-title"><strong><%%DETAIL_VIEW_TITLE%%></strong></h3></div>
 
-<div class="panel-body" id="entries_dv_container">
+<div class="panel-body" id="tax_entry_dv_container">
 	<!-- child links -->
 	<div class="row">
 		<div class="col-xs-12">
@@ -14,7 +14,7 @@
 
 	<div class="row">
 		<!-- form inputs -->
-		<div class="col-md-8 col-lg-10" id="entries_dv_form">
+		<div class="col-md-8 col-lg-10" id="tax_entry_dv_form">
 			<fieldset class="form-horizontal">
 
 				<div class="form-group">
@@ -39,81 +39,62 @@
 				</div>
 
 				<div class="form-group">
-					<label for="outcome_area" class="control-label col-lg-3">Outcome area</label>
+					<label for="turnover" class="control-label col-lg-3">Turnover</label>
 					<div class="col-lg-9">
-						<p class="form-control-static" id="outcome_area"></p>
+						<input tabindex="1" maxlength="40" type="text" class="form-control" name="turnover" id="turnover" value="<%%VALUE(turnover)%%>">
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="outcome" class="control-label col-lg-3">Outcome</label>
+					<label for="payroll_tax" class="control-label col-lg-3">Payroll tax (&#163;m)</label>
 					<div class="col-lg-9">
-						<div class="row"><div class="col-xs-10"><%%COMBO(outcome)%%></div><div class="col-xs-1"><%%PLINK(outcome)%%></div><div class="col-xs-1"><span id="outcomeLoading"></span></div></div>
+						<input tabindex="1" maxlength="40" type="text" class="form-control" name="payroll_tax" id="payroll_tax" value="<%%VALUE(payroll_tax)%%>">
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="indicator" class="control-label col-lg-3">Indicator</label>
+					<label for="ni_contribution" class="control-label col-lg-3">NI contribution (&#163;m)</label>
 					<div class="col-lg-9">
-						<div class="row"><div class="col-xs-10"><%%COMBO(indicator)%%></div><div class="col-xs-1"><%%PLINK(indicator)%%></div></div>
+						<input tabindex="1" maxlength="40" type="text" class="form-control" name="ni_contribution" id="ni_contribution" value="<%%VALUE(ni_contribution)%%>">
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="score" class="control-label col-lg-3">Score</label>
+					<label for="business_rates" class="control-label col-lg-3">Business rates (&#163;m)</label>
 					<div class="col-lg-9">
-						<input tabindex="1" maxlength="" type="text" class="form-control" name="score" id="score" value="<%%VALUE(score)%%>">
+						<input tabindex="1" maxlength="40" type="text" class="form-control" name="business_rates" id="business_rates" value="<%%VALUE(business_rates)%%>">
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="beneficiary_group" class="control-label col-lg-3">Relevant beneficiary group</label>
+					<label for="corporation_tax" class="control-label col-lg-3">Corporation tax (&#163;m)</label>
 					<div class="col-lg-9">
-						<div class="row"><div class="col-xs-10"><%%COMBO(beneficiary_group)%%></div><div class="col-xs-1"><%%PLINK(beneficiary_group)%%></div></div>
+						<input tabindex="1" maxlength="40" type="text" class="form-control" name="corporation_tax" id="corporation_tax" value="<%%VALUE(corporation_tax)%%>">
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="beneficiary_group_relevance" class="control-label col-lg-3">Beneficiary group relevance</label>
+					<label for="other_tax" class="control-label col-lg-3">Other tax (&#163;m)</label>
 					<div class="col-lg-9">
-						<%%COMBO(beneficiary_group_relevance)%%>
+						<input tabindex="1" maxlength="40" type="text" class="form-control" name="other_tax" id="other_tax" value="<%%VALUE(other_tax)%%>">
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="comment" class="control-label col-lg-3">Comment</label>
+					<label for="sum" class="control-label col-lg-3">Sum of all tax <button class="btn btn-info btn-xs vspacer-sm" type="button" data-toggle="collapse" tabindex="-1" data-target="#sum-description"><i class="glyphicon glyphicon-info-sign"></i></button></label>
 					<div class="col-lg-9">
-						<textarea tabindex="1" class="form-control" name="comment" id="comment" rows="5"><%%VALUE(comment)%%></textarea>
+						<span class="help-block collapse" id="sum-description"><div class="alert alert-info">Auto calculated</div></span>
+
+						<input tabindex="1" maxlength="40" type="text" class="form-control" name="sum" id="sum" value="<%%VALUE(sum)%%>">
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="reference" class="control-label col-lg-3">Reference <button class="btn btn-info btn-xs vspacer-sm" type="button" data-toggle="collapse" tabindex="-1" data-target="#reference-description"><i class="glyphicon glyphicon-info-sign"></i></button></label>
+					<label for="ratio" class="control-label col-lg-3">Ratio <button class="btn btn-info btn-xs vspacer-sm" type="button" data-toggle="collapse" tabindex="-1" data-target="#ratio-description"><i class="glyphicon glyphicon-info-sign"></i></button></label>
 					<div class="col-lg-9">
-						<span class="help-block collapse" id="reference-description"><div class="alert alert-info">What is the data source for this entry?</div></span>
+						<span class="help-block collapse" id="ratio-description"><div class="alert alert-info">Auto calculated</div></span>
 
-						<input tabindex="1" maxlength="255" type="text" class="form-control" name="reference" id="reference" value="<%%VALUE(reference)%%>">
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label for="reliability" class="control-label col-lg-3">Reliability</label>
-					<div class="col-lg-9">
-						<%%COMBO(reliability)%%>
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label for="intentionality" class="control-label col-lg-3">Intentionality</label>
-					<div class="col-lg-9">
-						<%%COMBO(intentionality)%%>
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label for="equivalence" class="control-label col-lg-3">Equivalence</label>
-					<div class="col-lg-9">
-						<%%COMBO(equivalence)%%>
+						<input tabindex="1" maxlength="40" type="text" class="form-control" name="ratio" id="ratio" value="<%%VALUE(ratio)%%>">
 					</div>
 				</div>
 
@@ -121,7 +102,7 @@
 		</div>
 
 		<!-- DV action buttons -->
-		<div class="col-md-4 col-lg-2" id="entries_dv_action_buttons">
+		<div class="col-md-4 col-lg-2" id="tax_entry_dv_action_buttons">
 			<div class="btn-toolbar">
 				<div class="btn-group-vertical btn-group-lg" style="width: 100%;">
 					<%%UPDATE_BUTTON%%>

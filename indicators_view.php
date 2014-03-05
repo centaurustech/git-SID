@@ -23,7 +23,7 @@
 	// Fields that can be displayed in the table view
 	$x->QueryFieldsTV=array(   
 		"`indicators`.`indicator_id`" => "indicator_id",
-		"IF(    CHAR_LENGTH(`outcomes1`.`outcome_id`) || CHAR_LENGTH(`outcomes1`.`description`), CONCAT_WS('',   `outcomes1`.`outcome_id`, ' - ', `outcomes1`.`description`), '') /* Outcome */" => "outcome",
+		"IF(    CHAR_LENGTH(`outcomes1`.`description`), CONCAT_WS('',   `outcomes1`.`description`), '') /* Outcome */" => "outcome",
 		"`indicators`.`description`" => "description"
 	);
 	// mapping incoming sort by requests to actual query fields
@@ -36,20 +36,20 @@
 	// Fields that can be displayed in the csv file
 	$x->QueryFieldsCSV=array(   
 		"`indicators`.`indicator_id`" => "indicator_id",
-		"IF(    CHAR_LENGTH(`outcomes1`.`outcome_id`) || CHAR_LENGTH(`outcomes1`.`description`), CONCAT_WS('',   `outcomes1`.`outcome_id`, ' - ', `outcomes1`.`description`), '') /* Outcome */" => "outcome",
+		"IF(    CHAR_LENGTH(`outcomes1`.`description`), CONCAT_WS('',   `outcomes1`.`description`), '') /* Outcome */" => "outcome",
 		"`indicators`.`description`" => "description"
 	);
 	// Fields that can be filtered
 	$x->QueryFieldsFilters=array(   
 		"`indicators`.`indicator_id`" => "Indicator id",
-		"IF(    CHAR_LENGTH(`outcomes1`.`outcome_id`) || CHAR_LENGTH(`outcomes1`.`description`), CONCAT_WS('',   `outcomes1`.`outcome_id`, ' - ', `outcomes1`.`description`), '') /* Outcome */" => "Outcome",
+		"IF(    CHAR_LENGTH(`outcomes1`.`description`), CONCAT_WS('',   `outcomes1`.`description`), '') /* Outcome */" => "Outcome",
 		"`indicators`.`description`" => "Description"
 	);
 
 	// Fields that can be quick searched
 	$x->QueryFieldsQS=array(   
 		"`indicators`.`indicator_id`" => "indicator_id",
-		"IF(    CHAR_LENGTH(`outcomes1`.`outcome_id`) || CHAR_LENGTH(`outcomes1`.`description`), CONCAT_WS('',   `outcomes1`.`outcome_id`, ' - ', `outcomes1`.`description`), '') /* Outcome */" => "outcome",
+		"IF(    CHAR_LENGTH(`outcomes1`.`description`), CONCAT_WS('',   `outcomes1`.`description`), '') /* Outcome */" => "outcome",
 		"`indicators`.`description`" => "description"
 	);
 
@@ -74,7 +74,7 @@
 	$x->AllowPrinting = 1;
 	$x->AllowPrintingMultiSelection = 0;
 	$x->AllowCSV = 1;
-	$x->RecordsPerPage = 10;
+	$x->RecordsPerPage = 1000;
 	$x->QuickSearch = 1;
 	$x->QuickSearchText = $Translation["quick search"];
 	$x->ScriptFileName = "indicators_view.php";
@@ -85,10 +85,10 @@
 	$x->DefaultSortField = '1';
 	$x->DefaultSortDirection = 'asc';
 
-	$x->ColWidth   = array(  20, 150, 150);
-	$x->ColCaption = array("Indicator id", "Outcome", "Description");
-	$x->ColFieldName = array('indicator_id', 'outcome', 'description');
-	$x->ColNumber  = array(1, 2, 3);
+	$x->ColWidth   = array(  20, 150);
+	$x->ColCaption = array("Indicator id", "Description");
+	$x->ColFieldName = array('indicator_id', 'description');
+	$x->ColNumber  = array(1, 3);
 
 	$x->Template = 'templates/indicators_templateTV.html';
 	$x->SelectedTemplate = 'templates/indicators_templateTVS.html';

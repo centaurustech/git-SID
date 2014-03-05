@@ -113,7 +113,8 @@
 			'outcome_areas'=>array('Outcome areas', '', 'resources/table_icons/bricks.png'),
 			'outcomes'=>array('Outcomes', '', 'resources/table_icons/brick.png'),
 			'beneficiary_groups'=>array('Beneficiary groups', '', 'resources/table_icons/heart.png'),
-			'indicators'=>array('Indicators', '', 'resources/table_icons/book_keeping.png')
+			'indicators'=>array('Indicators', '', 'resources/table_icons/book_keeping.png'),
+			'tax_entry'=>array('Tax', '', 'table.gif')
 			);
 		if(is_array($arrTables)){
 			foreach($arrTables as $tn=>$tc){

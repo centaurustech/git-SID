@@ -82,8 +82,8 @@
 						<td align="center">
 							Show records from
 							<?php
-								$arrFields=array('', 'clients', 'companies', 'sic', 'reports', 'entries', 'outcome_areas', 'outcomes', 'beneficiary_groups', 'indicators');
-								$arrFieldCaptions=array('All tables', 'Clients', 'Companies', 'SIC', 'Reports', 'Entries', 'Outcome areas', 'Outcomes', 'Beneficiary groups', 'Indicators');
+								$arrFields=array('', 'clients', 'companies', 'sic', 'reports', 'entries', 'outcome_areas', 'outcomes', 'beneficiary_groups', 'indicators', 'tax_entry');
+								$arrFieldCaptions=array('All tables', 'Clients', 'Companies', 'SIC', 'Reports', 'Entries', 'Outcome areas', 'Outcomes', 'Beneficiary groups', 'Indicators', 'Tax');
 								echo htmlSelect('tableName', $arrFields, $arrFieldCaptions, $tableName);
 							?>
 							</td>

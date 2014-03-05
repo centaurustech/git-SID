@@ -1,0 +1,11 @@
+<!-- Edit this file to change the layout of each record in the table view -->
+<!-- To disable clicking of a field, remove the <%%select%%> and <%%endselect%%> formatters around it-->
+
+<!-- If you wish to hide the table view header that contains the column titles, -->
+<!-- open the generated 'tax_entry_view.php' file in your text editor and -->
+<!-- change the value of $x->ShowTableHeader to 0 -->
+
+		<td id="tax_entry-tax_entry_id-<%%VALUE(tax_entry_id)%%>" class="tax_entry-tax_entry_id "><%%SELECT%%><%%VALUE(tax_entry_id)%%><%%ENDSELECT%%></td>
+		<td id="tax_entry-created-<%%VALUE(tax_entry_id)%%>" class="tax_entry-created "><%%VALUE(created)%%></td>
+		<td id="tax_entry-created_by-<%%VALUE(tax_entry_id)%%>" class="tax_entry-created_by "><%%VALUE(created_by)%%></td>
+		<td id="tax_entry-report-<%%VALUE(tax_entry_id)%%>" class="tax_entry-report "><%%VALUE(report)%%></td>

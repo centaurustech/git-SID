@@ -86,7 +86,7 @@ function NavMenus($options = array()){
 	if(is_array($arrTables)){
 		foreach($arrTables as $tn => $tc){
 			/* ---- list of tables where hide link in nav menu is set ---- */
-			$tChkHL = array_search($tn, array('sic','entries','outcome_areas','outcomes','beneficiary_groups','indicators'));
+			$tChkHL = array_search($tn, array('sic','reports','entries','outcome_areas','outcomes','beneficiary_groups','tax_entry'));
 			if($tChkHL !== false && $tChkHL !== null) continue;
 
 			/* ---- list of tables where filter first is set ---- */

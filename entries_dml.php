@@ -41,6 +41,11 @@ function entries_insert(){
 		if($data['intentionality'] == empty_lookup_value){ $data['intentionality'] = ''; }
 	$data['equivalence'] = makeSafe($_POST['equivalence']);
 		if($data['equivalence'] == empty_lookup_value){ $data['equivalence'] = ''; }
+	if($data['report']== ''){
+		echo StyleSheet() . "\n\n<div class=\"alert alert-danger\">" . $Translation['error:'] . " 'Report': " . $Translation['field not null'] . '<br /><br />';
+		echo '<a href="" onclick="history.go(-1); return false;">'.$Translation['< back'].'</a></div>';
+		exit;
+	}
 
 	// hook: entries_before_insert
 	if(function_exists('entries_before_insert')){
@@ -127,6 +132,11 @@ function entries_update($selected_id){
 	$data['created'] = parseMySQLDate('', '<%%creationDate%%>');
 	$data['report'] = makeSafe($_POST['report']);
 		if($data['report'] == empty_lookup_value){ $data['report'] = ''; }
+	if($data['report']==''){
+		echo StyleSheet() . "\n\n<div class=\"alert alert-danger\">{$Translation['error:']} 'Report': {$Translation['field not null']}<br /><br />";
+		echo '<a href="" onclick="history.go(-1); return false;">'.$Translation['< back'].'</a></div>';
+		exit;
+	}
 	$data['outcome_area'] = makeSafe($_POST['outcome']);
 		if($data['outcome_area'] == empty_lookup_value){ $data['outcome_area'] = ''; }
 	$data['outcome'] = makeSafe($_POST['outcome']);

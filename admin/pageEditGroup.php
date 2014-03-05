@@ -69,6 +69,11 @@
 		$indicators_edit=checkPermissionVal('indicators_edit');
 		$indicators_delete=checkPermissionVal('indicators_delete');
 		###############################
+		$tax_entry_insert=checkPermissionVal('tax_entry_insert');
+		$tax_entry_view=checkPermissionVal('tax_entry_view');
+		$tax_entry_edit=checkPermissionVal('tax_entry_edit');
+		$tax_entry_delete=checkPermissionVal('tax_entry_delete');
+		###############################
 
 		// new group or old?
 		if($_POST['groupID']==''){ // new group
@@ -113,6 +118,7 @@
 			sql("delete from membership_grouppermissions where groupID='$groupID' and tableName='outcomes'", $eo);
 			sql("delete from membership_grouppermissions where groupID='$groupID' and tableName='beneficiary_groups'", $eo);
 			sql("delete from membership_grouppermissions where groupID='$groupID' and tableName='indicators'", $eo);
+			sql("delete from membership_grouppermissions where groupID='$groupID' and tableName='tax_entry'", $eo);
 		}
 
 		// add group permissions
@@ -135,6 +141,8 @@
 			sql("insert into membership_grouppermissions set groupID='$groupID', tableName='beneficiary_groups', allowInsert='$beneficiary_groups_insert', allowView='$beneficiary_groups_view', allowEdit='$beneficiary_groups_edit', allowDelete='$beneficiary_groups_delete'", $eo);
 			// table 'indicators'
 			sql("insert into membership_grouppermissions set groupID='$groupID', tableName='indicators', allowInsert='$indicators_insert', allowView='$indicators_view', allowEdit='$indicators_edit', allowDelete='$indicators_delete'", $eo);
+			// table 'tax_entry'
+			sql("insert into membership_grouppermissions set groupID='$groupID', tableName='tax_entry', allowInsert='$tax_entry_insert', allowView='$tax_entry_view', allowEdit='$tax_entry_edit', allowDelete='$tax_entry_delete'", $eo);
 		}
 
 		// redirect to group editing page
@@ -446,6 +454,28 @@
 						<td class="tdCell">
 							<?php
 								echo htmlRadioGroup("indicators_delete", $arrPermVal, $arrPermText, $indicators_delete, "highlight");
+							?>
+							</td>
+						</tr>
+				<!-- tax_entry table -->
+					<tr>
+						<td class="tdCaptionCell" valign="top">Tax</td>
+						<td class="tdCell" valign="top">
+							<input onMouseOver="stm(tax_entry_addTip, toolTipStyle);" onMouseOut="htm();" type="checkbox" name="tax_entry_insert" value="1" <?php echo ($tax_entry_insert ? "checked class=\"highlight\"" : ""); ?>>
+							</td>
+						<td class="tdCell">
+							<?php
+								echo htmlRadioGroup("tax_entry_view", $arrPermVal, $arrPermText, $tax_entry_view, "highlight");
+							?>
+							</td>
+						<td class="tdCell">
+							<?php
+								echo htmlRadioGroup("tax_entry_edit", $arrPermVal, $arrPermText, $tax_entry_edit, "highlight");
+							?>
+							</td>
+						<td class="tdCell">
+							<?php
+								echo htmlRadioGroup("tax_entry_delete", $arrPermVal, $arrPermText, $tax_entry_delete, "highlight");
 							?>
 							</td>
 						</tr>

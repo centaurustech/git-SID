@@ -1,0 +1,82 @@
+<!-- Edit this file to change the layout of the detail view print preview page -->
+
+
+<div class="panel-heading"><h3 class="panel-title">
+	<strong><%%DETAIL_VIEW_TITLE%%></strong>
+	<div class="hidden-print pull-right">
+		<button type="button" id="print" onclick="window.print();" title="<%%TRANSLATION(Print)%%>" class="btn btn-success"><i class="glyphicon glyphicon-print"></i></button>
+		<button type="submit" id="back" title="<%%TRANSLATION(Back)%%>" class="btn btn-warning"><i class="glyphicon glyphicon-remove"></i></button>
+	</div>
+	<div class="clearfix"></div>
+</h3></div>
+
+<div class="panel-body">
+	<fieldset class="form-horizontal">
+		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Created</label>
+			<div class="col-xs-9">
+				<p class="form-control-static"><%%COMBOTEXT(created)%%></p>
+			</div>
+		</div>
+		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Created by</label>
+			<div class="col-xs-9">
+				<p class="form-control-static"><%%VALUE(created_by)%%></p>
+			</div>
+		</div>
+		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Report</label>
+			<div class="col-xs-9">
+				<p class="form-control-static"><span id="report<%%RND1%%>"><%%COMBOTEXT(report)%%></span></p>
+			</div>
+		</div>
+		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Turnover</label>
+			<div class="col-xs-9">
+				<p class="form-control-static"><%%VALUE(turnover)%%></p>
+			</div>
+		</div>
+		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Payroll tax (&#163;m)</label>
+			<div class="col-xs-9">
+				<p class="form-control-static"><%%VALUE(payroll_tax)%%></p>
+			</div>
+		</div>
+		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">NI contribution (&#163;m)</label>
+			<div class="col-xs-9">
+				<p class="form-control-static"><%%VALUE(ni_contribution)%%></p>
+			</div>
+		</div>
+		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Business rates (&#163;m)</label>
+			<div class="col-xs-9">
+				<p class="form-control-static"><%%VALUE(business_rates)%%></p>
+			</div>
+		</div>
+		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Corporation tax (&#163;m)</label>
+			<div class="col-xs-9">
+				<p class="form-control-static"><%%VALUE(corporation_tax)%%></p>
+			</div>
+		</div>
+		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Other tax (&#163;m)</label>
+			<div class="col-xs-9">
+				<p class="form-control-static"><%%VALUE(other_tax)%%></p>
+			</div>
+		</div>
+		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Sum of all tax</label>
+			<div class="col-xs-9">
+				<p class="form-control-static"><%%VALUE(sum)%%></p>
+			</div>
+		</div>
+		<div class="form-group" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Ratio</label>
+			<div class="col-xs-9">
+				<p class="form-control-static"><%%VALUE(ratio)%%></p>
+			</div>
+		</div>
+	</fieldset>
+</div>

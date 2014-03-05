@@ -31,7 +31,6 @@ div.datePicker{ font-size: 1.3em; }
 .companies-created_by{ white-space: normal !important; max-width: 30px !important; min-width: 30px !important;  }
 .sic-sic_id{ white-space: normal !important; max-width: 20px !important; min-width: 20px !important;  }
 .reports-report_id{ white-space: normal !important; max-width: 20px !important; min-width: 20px !important;  }
-.reports-date{ white-space: normal !important; max-width: 30px !important; min-width: 30px !important;  }
 .reports-created{ white-space: normal !important; max-width: 20px !important; min-width: 20px !important;  }
 .reports-created_by{ white-space: normal !important; max-width: 30px !important; min-width: 30px !important;  }
 .entries-entry_id{ white-space: normal !important; max-width: 20px !important; min-width: 20px !important;  }
@@ -39,3 +38,4 @@ div.datePicker{ font-size: 1.3em; }
 .outcomes-outcome_id{ white-space: normal !important; max-width: 20px !important; min-width: 20px !important;  }
 .beneficiary_groups-beneficiary_group_id{ white-space: normal !important; max-width: 20px !important; min-width: 20px !important;  }
 .indicators-indicator_id{ white-space: normal !important; max-width: 20px !important; min-width: 20px !important;  }
+.tax_entry-tax_entry_id{ white-space: normal !important; max-width: 20px !important; min-width: 20px !important;  }
